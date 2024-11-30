@@ -25,6 +25,12 @@ Esta plantilla tiene la siguiente estructura de directorios:
     │   └── sidebar.py
     ├── pages
     │   ├── __init__.py
+    │   ├── admin
+    │   │   ├── __init__.py
+    │   │   ├── 
+    │   ├── user
+    │   │   ├── __init__.py
+    │   │   ├── 
     │   ├── about.py
     │   ├── index.py
     │   ├── profile.py
