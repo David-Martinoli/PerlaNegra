@@ -34,7 +34,36 @@ Esta plantilla tiene la siguiente estructura de directorios:
     ├── templates
     │   ├── __init__.py
     │   └── template.py
-    └── {tu_app}.py
+    ├── {tu_app}.py
+    ├── database/
+    │   ├── __init__.py
+    │   ├── config/
+    │   │   ├── __init__.py
+    │   │   └── settings.py      # Configuración de DB, URLs, etc.
+    │   │
+    │   ├── models/
+    │   │   ├── __init__.py
+    │   │   ├── base_model.py    # Modelo base con campos comunes
+    │   │   ├── user.py
+    │   │   └── mixins/          # Mixins reutilizables
+    │   │       ├── __init__.py
+    │   │       └── timestamp_mixin.py
+    │   │
+    │   ├── migrations/
+    │   │   ├── __init__.py
+    │   │   ├── env.py
+    │   │   ├── script.py.mako
+    │   │   └── versions/
+    │   │       └── *.py
+    │   │
+    │   ├── repositories/
+    │   │   ├── __init__.py
+    │   │   ├── base.py          # Repositorio base
+    │   │   └── user.py
+    │   │
+    │   └── services/
+    │       ├── __init__.py
+    │       └── db_service.py      # Gestión de conexiones y sesiones
 ```
 
 Consulta la [documentación de Estructura del Proyecto](https://reflex.dev/docs/getting-started/project-structure/) para más información sobre la estructura general de proyectos Reflex.
@@ -68,3 +97,44 @@ A medida que tu aplicación crece, recomendamos usar [subestados](https://reflex
 para organizar tu estado.
 
 Puedes definir subestados en sus propios archivos, o si el estado es específico de una página, puedes definirlo en el archivo de la página misma.
+
+
+
+#### SistBatInteg Ejecutando Reflex en Linux
+
+```bash
+sudo apt install python3-venv python3-pip
+python3 -m venv .env
+source .env/bin/activate
+python -m pip install -U pip
+pip install reflex
+```
+Desde cursor si al activar el entorno virtual da error se debe ejecutar:
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+o
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+```
+
+Para instalar dependencias desde requirements.txt:
+```bash
+pip install -r requirements.txt
+```
+
+Para generar un nuevo requirements.txt:
+```bash
+pip freeze > requirements.txt
+```
+
+Actualización de Dependencias (si es necesario)
+```bash
+python.exe -m pip install --upgrade pip
+pip install --upgrade reflex alembic
+```
+
+
+
+reflex db init  inicializa la base de datos
+  init            Crear esquema de base de datos y configuración de migración.
+  migrate         Crear o actualizar esquema de base de datos desde scripts de migración.
+  makemigrations  Crear scripts de migración alembic autogenerados.
