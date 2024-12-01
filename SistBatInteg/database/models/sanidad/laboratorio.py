@@ -1,10 +1,11 @@
 import reflex as rx
+from sqlmodel import Field
 from datetime import date
 from ..mixins.timestamp_mixin import TimestampMixin
 
 class Laboratorio(rx.Model, TimestampMixin, table=True):
-    id: int = rx.Field(primary_key=True)
-    prueba_hemograma_id: int = rx.Field(foreign_key='prueba_hemograma.id')
+    id: int = Field(primary_key=True)
+    prueba_hemograma_id: int = Field(foreign_key='pruebahemograma.id')
     eritrosedimentacion: str = ''
     glucemia: float
     uremia: float

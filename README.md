@@ -98,7 +98,7 @@ Puedes definir subestados en sus propios archivos, o si el estado es específico
 ```bash
 sudo apt install python3-venv python3-pip
 python3 -m venv .env
-source .env/bin/activate
+source .venv/Scripts/activate
 python -m pip install -U pip
 pip install reflex
 ```
@@ -125,9 +125,27 @@ python.exe -m pip install --upgrade pip
 pip install --upgrade reflex alembic
 ```
 
+Para ejecutar la aplicación:
+```bash
+reflex run
+```
 
 
+##### Migraciones
+```bash
 reflex db init  inicializa la base de datos
   init            Crear esquema de base de datos y configuración de migración.
   migrate         Crear o actualizar esquema de base de datos desde scripts de migración.
   makemigrations  Crear scripts de migración alembic autogenerados.
+
+  reflex db makemigrations --message 'something changed'
+```
+
+Migraciones
+Reflex aprovecha alembic para gestionar los cambios en el esquema de la base de datos.
+
+Antes de poder usar la función de base de datos en una nueva aplicación, debe llamar reflex db init para inicializar alembic y crear un script de migración con el esquema actual.
+
+Después de realizar cambios en el esquema, utilice reflex db makemigrations --message 'something changed' para generar un script en el alembic/versionsdirectorio que actualizará el esquema de la base de datos. Se recomienda inspeccionar los scripts antes de aplicarlos.
+
+El reflex db migratecomando se utiliza para aplicar scripts de migración para actualizar la base de datos. Durante el inicio de la aplicación, si Reflex detecta que el esquema de la base de datos actual no está actualizado, se mostrará una advertencia en la consola.

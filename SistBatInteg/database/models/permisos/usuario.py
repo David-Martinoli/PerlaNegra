@@ -1,11 +1,24 @@
 import reflex as rx
-from datetime import datetime, UTC
+from sqlmodel import Field
+from datetime import datetime, timezone
+from sqlalchemy import text
 from ..mixins.timestamp_mixin import TimestampMixin
+from alembic import op
 
-class Usuario(rx.Model, TimestampMixin, table=True):
-    id: int = rx.Field(primary_key=True)
-    personal_id: int = rx.Field(foreign_key='personal.id')
-    nombre_usuario: str
-    hash_contrasena: str
-    cambiar_contrasena: bool = False
-    creado_en: datetime = datetime.now(datetime.UTC)
+class Usuario(TimestampMixin, rx.Model, table=True):
+    id: int = Field(primary_key=True)
+    personal_id: int | None = Field(nullable=True, default=None) # foreign_key='personal.id'
+    nombre_usuario: str = Field(nullable=False)
+    hash_contrasena: str = Field(nullable=False)
+    cambiar_contrasena: bool = Field(default=False)
+    creado_en: datetime = Field(default=lambda: datetime.now(timezone.utc))
+    
+    '''	
+    cambiar_contrasena: bool = Field(
+        default=False,
+        nullable=False,
+        server_default=text('0')
+    )
+    
+    creado_en: datetime = Field(default=lambda: datetime.now(timezone.utc))
+    '''

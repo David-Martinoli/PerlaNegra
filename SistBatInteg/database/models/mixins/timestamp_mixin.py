@@ -1,16 +1,16 @@
 import reflex as rx
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlmodel import SQLModel, Field
 from sqlalchemy import event
 
 class TimestampMixin():
-    created_at: datetime = rx.Field(default_factory=datetime.now(datetime.UTC))
-    updated_at: datetime = rx.Field(default_factory=datetime.now(datetime.UTC))
+    created_at: datetime = Field(default=datetime.now(timezone.utc))
+    updated_at: datetime = Field(default=datetime.now(timezone.utc))
 
     def save(self, *args, **kwargs):
-        self.updated_at = datetime.now(datetime.UTC)
+        self.updated_at = datetime.now(timezone.utc)
         super().save(*args, **kwargs)
 
 @event.listens_for(TimestampMixin, 'before_update', propagate=True)
 def update_timestamp(mapper, connection, target):
-    target.updated_at = datetime.now(datetime.UTC)
+    target.updated_at = datetime.now(timezone.utc)

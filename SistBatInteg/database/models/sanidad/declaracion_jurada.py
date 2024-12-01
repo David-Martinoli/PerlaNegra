@@ -1,10 +1,11 @@
 import reflex as rx
-from datetime import date, datetime
+from sqlmodel import Field
+from datetime import date, datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
 
 class DeclaracionJurada(rx.Model, TimestampMixin, table=True):
-    id: int = rx.Field(primary_key=True)
-    personal_id: int = rx.Field(foreign_key='personal.id')
+    id: int = Field(primary_key=True)
+    personal_id: int = Field(foreign_key='personal.id')
     fatiga_facil: bool = False
     falta_aire: bool = False
     tos_cronica: bool = False
@@ -40,11 +41,11 @@ class DeclaracionJurada(rx.Model, TimestampMixin, table=True):
     consumo_alcohol: bool = False
     consumo_drogas: bool = False
     requirio_oxigeno: bool = False
-    actividad_fisica_id: int = rx.Field(foreign_key='tipo_actividad_fisica.id')
+    actividad_fisica_id: int = Field(foreign_key='tipoactividadfisica.id')
     otros_antecedentes: str = ''
     fecha_anexo: date
-    fecha_hora_carga: datetime = datetime.now(datetime.UTC)
+    fecha_hora_carga: datetime = datetime.now(timezone.utc)
     tiempo_caducidad: int = 0
-    examen_medico_id: int = rx.Field(foreign_key='examen_medico.id')
-    laboratorio_id: int = rx.Field(foreign_key='laboratorio.id')
-    cardiologicos_id: int = rx.Field(foreign_key='cardiologicos.id')
+    examen_medico_id: int = Field(foreign_key='examenmedico.id')
+    laboratorio_id: int = Field(foreign_key='laboratorio.id')
+    cardiologicos_id: int = Field(foreign_key='cardiologico.id')
