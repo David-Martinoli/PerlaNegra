@@ -1,7 +1,8 @@
 import reflex as rx
 from datetime import date, datetime
+from ..mixins.timestamp_mixin import TimestampMixin
 
-class DeclaracionJurada(rx.Model, table=True):
+class DeclaracionJurada(rx.Model, TimestampMixin, table=True):
     id: int = rx.Field(primary_key=True)
     personal_id: int = rx.Field(foreign_key='personal.id')
     fatiga_facil: bool = False
@@ -42,7 +43,7 @@ class DeclaracionJurada(rx.Model, table=True):
     actividad_fisica_id: int = rx.Field(foreign_key='tipo_actividad_fisica.id')
     otros_antecedentes: str = ''
     fecha_anexo: date
-    fecha_hora_carga: datetime = datetime.utcnow()
+    fecha_hora_carga: datetime = datetime.now(datetime.UTC)
     tiempo_caducidad: int = 0
     examen_medico_id: int = rx.Field(foreign_key='examen_medico.id')
     laboratorio_id: int = rx.Field(foreign_key='laboratorio.id')

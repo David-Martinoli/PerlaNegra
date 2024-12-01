@@ -1,7 +1,7 @@
 import reflex as rx
-from datetime import date, datetime
+from ..mixins.timestamp_mixin import TimestampMixin
 
-class Permiso(rx.Model, table=True):
+class Permiso(rx.Model, TimestampMixin, table=True):
     id: int = rx.Field(primary_key=True)
     modulo: str
     accion: str

@@ -1,7 +1,7 @@
 import reflex as rx
-from datetime import date, datetime
+from ..mixins.timestamp_mixin import TimestampMixin
 
-class PruebaHemograma(rx.Model, table=True):
+class PruebaHemograma(rx.Model, TimestampMixin, table=True):
     id: int = rx.Field(primary_key=True)
     globulos_rojos: int
     hematocritos: int

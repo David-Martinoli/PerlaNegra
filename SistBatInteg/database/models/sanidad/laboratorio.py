@@ -1,7 +1,8 @@
 import reflex as rx
-from datetime import date, datetime
+from datetime import date
+from ..mixins.timestamp_mixin import TimestampMixin
 
-class Laboratorio(rx.Model, table=True):
+class Laboratorio(rx.Model, TimestampMixin, table=True):
     id: int = rx.Field(primary_key=True)
     prueba_hemograma_id: int = rx.Field(foreign_key='prueba_hemograma.id')
     eritrosedimentacion: str = ''
