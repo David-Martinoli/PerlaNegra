@@ -10,5 +10,5 @@ class Direccion(rx.Model, table=True):
     codigo_postal: str = ''
     pais: str = ''
     tipo_direccion: str = ''
-    creado_en: datetime = datetime.utcnow()
-    actualizado_en: datetime = datetime.utcnow()
+    creado_en: datetime = datetime.now(datetime.UTC)
+    actualizado_en: datetime = datetime.now(datetime.UTC)

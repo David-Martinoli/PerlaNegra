@@ -9,4 +9,4 @@ class Calificacion(rx.Model, table=True):
     val3: int = 0
     val4: int = 0
     val5: int = 0
-    creado_en: datetime = datetime.utcnow()
+    creado_en: datetime = datetime.now(datetime.UTC)

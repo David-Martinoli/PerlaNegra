@@ -1,5 +1,5 @@
 import reflex as rx
-from datetime import date, datetime
+from datetime import datetime, UTC
 
 class Usuario(rx.Model, table=True):
     id: int = rx.Field(primary_key=True)
@@ -7,4 +7,4 @@ class Usuario(rx.Model, table=True):
     nombre_usuario: str
     hash_contrasena: str
     cambiar_contrasena: bool = False
-    creado_en: datetime = datetime.utcnow()
+    creado_en: datetime = datetime.now(datetime.UTC)

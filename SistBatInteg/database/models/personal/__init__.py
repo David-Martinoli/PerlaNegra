@@ -1,7 +1,6 @@
 # Personal
 from .atributo_clave import AtributoClave
 from .atributo_personal import AtributoPersonal
-from .usuario import Usuario
 from .telefono import Telefono
 from .unidad import Unidad
 from .calificacion import Calificacion

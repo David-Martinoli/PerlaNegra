@@ -9,4 +9,4 @@ class Auditoria(rx.Model, table=True):
     valor_anterior: str = ''
     valor_nuevo: str = ''
     modificado_por: str = ''
-    fecha_modificacion: datetime = datetime.utcnow()
+    fecha_modificacion: datetime = datetime.now(datetime.UTC)

@@ -6,5 +6,5 @@ class Telefono(rx.Model, table=True):
     personal_id: int = rx.Field(foreign_key='personal.id')
     numero_telefono: str
     tipo_telefono: str = ''
-    creado_en: datetime = datetime.utcnow()
-    actualizado_en: datetime = datetime.utcnow()
+    creado_en: datetime = datetime.now(datetime.UTC)
+    actualizado_en: datetime = datetime.now(datetime.UTC)

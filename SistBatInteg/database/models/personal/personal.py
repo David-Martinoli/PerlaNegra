@@ -14,5 +14,5 @@ class Personal(rx.Model, table=True):
     grado: str = ''
     cuadro: str = ''
     en_campo: str = ''
-    creado_en: datetime = datetime.utcnow()
-    actualizado_en: datetime = datetime.utcnow()
+    creado_en: datetime = datetime.now(datetime.UTC)
+    actualizado_en: datetime = datetime.now(datetime.UTC)
