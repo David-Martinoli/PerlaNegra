@@ -1,17 +1,8 @@
-# ¡Bienvenido a Reflex!
+# ¡Bienvenido a SistBatInteg!
 
-Esta es la plantilla base de Reflex - instalada cuando ejecutas `reflex init`.
+Este es un sistema de gestion para la empresa SistBatInteg.
 
-Si deseas usar una plantilla diferente, pasa la bandera `--template` a `reflex init`.
-Por ejemplo, si quieres un punto de partida más básico, puedes ejecutar:
-
-```bash
-reflex init --template blank
-```
-
-## Acerca de esta Plantilla
-
-Esta plantilla tiene la siguiente estructura de directorios:
+## Acerca de la estructura del proyecto
 
 ```bash
 ├── README.md
@@ -72,8 +63,6 @@ Esta plantilla tiene la siguiente estructura de directorios:
     │       └── db_service.py      # Gestión de conexiones y sesiones
 ```
 
-Consulta la [documentación de Estructura del Proyecto](https://reflex.dev/docs/getting-started/project-structure/) para más información sobre la estructura general de proyectos Reflex.
-
 ### Agregar Páginas
 
 En esta plantilla, las páginas de tu aplicación se definen en `{tu_app}/pages/`.
@@ -103,8 +92,6 @@ A medida que tu aplicación crece, recomendamos usar [subestados](https://reflex
 para organizar tu estado.
 
 Puedes definir subestados en sus propios archivos, o si el estado es específico de una página, puedes definirlo en el archivo de la página misma.
-
-
 
 #### SistBatInteg Ejecutando Reflex en Linux
 
