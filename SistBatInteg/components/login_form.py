@@ -1,7 +1,45 @@
-from SistBatInteg import styles
+"""Módulo que contiene el formulario de inicio de sesión.
+
+Este módulo proporciona componentes para renderizar el formulario de inicio de sesión,
+permitiendo a los usuarios autenticarse en el sistema mediante su nombre de usuario
+y contraseña.
+
+Functions:
+    login_default() -> rx.Component: Renderiza el formulario de inicio de sesión 
+        con los campos de usuario y contraseña.
+"""
+
 import reflex as rx
+from ..database.models.permisos.usuario import Usuario
+
+
+class UserState(rx.State):
+    usuario: list[Usuario]
+    pass
+
 
 def login_default() -> rx.Component:
+    """Módulo que contiene el formulario de inicio de sesión.
+
+    Este módulo proporciona componentes para renderizar el formulario de inicio de sesión,
+    permitiendo a los usuarios autenticarse en el sistema mediante su nombre de usuario
+    y contraseña.
+
+    Functions:
+        login_default() -> rx.Component: Renderiza el formulario de inicio de sesión 
+            con los campos de usuario y contraseña. Incluye:
+            - Logo del sistema
+            - Título del formulario
+            - Campo de usuario
+            - Campo de contraseña
+            - Enlace para recuperar contraseña
+            - Botón de inicio de sesión
+
+    Returns:
+        rx.Component: Un componente Reflex que contiene el formulario de login completo
+            estilizado con la interfaz visual del sistema.
+    """
+    # UserState.
     return rx.card(
         rx.vstack(
             rx.center(

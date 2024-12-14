@@ -1,1 +1,0 @@
-# Gestión de conexiones y sesiones

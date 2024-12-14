@@ -19,12 +19,16 @@ from ..components.card import card
 from .profile import ProfileState
 import datetime
 
+from ..components.login_form import login_default
+from ..components.user_form import usuario_component
+
 
 def _time_data() -> rx.Component:
     return rx.hstack(
         rx.tooltip(
             rx.icon("info", size=20),
-            content=f"{(datetime.datetime.now() - datetime.timedelta(days=30)).strftime('%b %d, %Y')} - {datetime.datetime.now().strftime('%b %d, %Y')}",
+            content=f"{(datetime.datetime.now() - datetime.timedelta(days=30)).strftime(
+                '%b %d, %Y')} - {datetime.datetime.now().strftime('%b %d, %Y')}",
         ),
         rx.text("Last 30 days", size="4", weight="medium"),
         align="center",
@@ -51,6 +55,8 @@ def index() -> rx.Component:
         The UI for the overview page.
     """
     return rx.vstack(
+        login_default(),
+        usuario_component(),
         rx.heading(f"Welcome, {ProfileState.profile.name}", size="5"),
         rx.flex(
             rx.input(
@@ -101,7 +107,8 @@ def index() -> rx.Component:
                 rx.hstack(
                     rx.hstack(
                         rx.icon("user-round-search", size=20),
-                        rx.text("Visitors Analytics", size="4", weight="medium"),
+                        rx.text("Visitors Analytics",
+                                size="4", weight="medium"),
                         align="center",
                         spacing="2",
                     ),
