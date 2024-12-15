@@ -24,14 +24,17 @@ class Usuario(TimestampMixin, rx.Model, table=True):
     nombre_usuario: str = Field(nullable=False)
     hash_contrasena: str = Field(nullable=False)
     cambiar_contrasena: bool = Field(default=False)
-    creado_en: datetime = Field(default=lambda: datetime.now(timezone.utc))
+    creado_en: datetime = Field(
+        sa_column_kwargs={"server_default": "CURRENT_TIMESTAMP"},
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
 
-    '''	
+    '''
     cambiar_contrasena: bool = Field(
         default=False,
         nullable=False,
         server_default=text('0')
     )
-    
+
     creado_en: datetime = Field(default=lambda: datetime.now(timezone.utc))
     '''

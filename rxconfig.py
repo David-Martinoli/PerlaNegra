@@ -3,12 +3,12 @@ from reflex import Config
 
 
 class MyAppConfig(Config):
-    db_url: str = "sqlite:///mydatabase.db"
+    db_url: str = "sqlite:///PerlaNegraDB.db"
     # db_url: str = "sqlite:///:memory:"
-    app_name: str = "SistBatInteg"
+    app_name: str = "PerlaNegra"
     env: str = "dev"    # Use "prod" for production
     debug: bool = True  # Set to False in production
-    deploy_url="https://reflex.dev"
+    deploy_url = "https://reflex.dev"
     # loglevel: LogLevel = LogLevel.DEFAULT
     frontend_port: int = 3000
     backend_port: int = 8000

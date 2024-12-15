@@ -1,4 +1,4 @@
-from SistBatInteg import styles
+from PerlaNegra import styles
 import reflex as rx
 
 def signup_default() -> rx.Component:

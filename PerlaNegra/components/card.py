@@ -1,5 +1,5 @@
 import reflex as rx
-from SistBatInteg import styles
+from PerlaNegra import styles
 
 
 def card(*children, **props):

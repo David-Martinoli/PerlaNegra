@@ -1,6 +1,6 @@
 """Navbar component for the app."""
 
-from SistBatInteg import styles
+from PerlaNegra import styles
 
 import reflex as rx
 

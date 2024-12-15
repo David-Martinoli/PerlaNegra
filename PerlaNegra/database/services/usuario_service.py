@@ -1,13 +1,13 @@
 """Módulo que contiene los servicios relacionados con la gestión de usuarios."""
-
+import reflex as rx
 from datetime import datetime, timezone
 from typing import Optional, Tuple
+from sqlmodel import Session, select
 
 from ..models.permisos.usuario import Usuario
-from ..repository.usuario_repository import select_all
 
 
-class UsuarioService:
+class UsuarioService(rx.State):
     """Servicio que maneja la lógica de negocio relacionada con los usuarios.
 
     Este servicio proporciona métodos para gestionar usuarios del sistema,
@@ -17,12 +17,28 @@ class UsuarioService:
     Attributes:
         No tiene atributos ya que todos sus métodos son estáticos.
     """
-    async def select_all_usuario():
-        usuarios = select_all()
-        print(usuarios)
-        return usuarios
 
-    @staticmethod
+    name: str
+    users: list[Usuario]
+
+    @rx.event
+    def select_all(self):
+        with rx.session() as session:
+            query = select(Usuario)
+            result = session.exec(query)
+            usuarios = result.scalars().all()
+            return list(usuarios)
+
+    @rx.event
+    def select_user(self):
+        with rx.session() as session:
+            self.users = session.exec(
+                Usuario.select().where(
+                    Usuario.nombre_usuario.__contains__(self.name)
+                )
+            ).all()
+
+    @ staticmethod
     async def crear_usuario(
         nombre_usuario: str,
         contrasena: str,

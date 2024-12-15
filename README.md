@@ -1,6 +1,6 @@
-# ¡Bienvenido a SistBatInteg!
+# ¡Bienvenido a SistIntegPerlaNegra!
 
-Este es un sistema de gestion para la empresa SistBatInteg.
+Este es un sistema de gestion para la empresa Sistema integral Perla Negra.
 
 ## Acerca de la estructura del proyecto
 
@@ -93,7 +93,7 @@ para organizar tu estado.
 
 Puedes definir subestados en sus propios archivos, o si el estado es específico de una página, puedes definirlo en el archivo de la página misma.
 
-#### SistBatInteg Ejecutando Reflex en Linux
+#### SistIntegPerlaNegra Ejecutando Reflex en Linux
 
 ```bash
 sudo apt install python3-venv python3-pip
@@ -133,7 +133,7 @@ reflex run
 
 ##### Migraciones
 ```bash
-reflex db init  inicializa la base de datos
+  reflex db init  inicializa la base de datos
   init            Crear esquema de base de datos y configuración de migración.
   migrate         Crear o actualizar esquema de base de datos desde scripts de migración.
   makemigrations  Crear scripts de migración alembic autogenerados.
