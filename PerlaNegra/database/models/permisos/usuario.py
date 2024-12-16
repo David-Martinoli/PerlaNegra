@@ -18,6 +18,7 @@ class Usuario(TimestampMixin, rx.Model, table=True):
         cambiar_contrasena (bool): Indica si el usuario debe cambiar su contraseña
         creado_en (datetime): Fecha y hora de creación del usuario
     """
+
     id: Optional[int] = Field(default=None, primary_key=True)
     personal_id: Optional[int] = Field(
         nullable=True, default=None)  # foreign_key='personal.id'
@@ -28,6 +29,7 @@ class Usuario(TimestampMixin, rx.Model, table=True):
         sa_column_kwargs={"server_default": "CURRENT_TIMESTAMP"},
         default_factory=lambda: datetime.now(timezone.utc)
     )
+    # expiration: datetime
 
     '''
     cambiar_contrasena: bool = Field(

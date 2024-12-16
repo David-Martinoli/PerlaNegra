@@ -1,6 +1,6 @@
 import reflex as rx
-from ..database.models.permisos.usuario import Usuario
-from ..database.services.usuario_service import UsuarioService
+from ...database.models.permisos.usuario import Usuario
+from ...database.services.usuario_service import UsuarioService
 
 
 def tabla_usuarios(list_user: list[Usuario]) -> rx.Component:
@@ -44,11 +44,11 @@ def usuario_component() -> rx.Component:
 class UserState(rx.State):
     usuario: list[Usuario] = []
 
-    @rx.event(background=True)
-    async def get_all_usuario(self):
+    @rx.event
+    def get_all_usuario(self):
         # try:
-        usuarios = await UsuarioService.select_all()
-        async with self:  # Usar el administrador de contexto
+        usuarios = UsuarioService.select_all()
+        with self:  # Usar el administrador de contexto
             self.usuario = usuarios
         # except Exception as e:
         #    print(f"Error al obtener usuarios: {e} 002")
@@ -77,35 +77,3 @@ def index_usuario_component() -> rx.Component:
         ),
         on_mount=UserState.get_all_usuario,
     )
-
-
-'''
-rx.card(
-        rx.vstack(
-            rx.heading("Información del Usuario", size="3"),
-            rx.form(
-                rx.text("Nombre de Usuario"),
-                rx.input(placeholder="Ingrese nombre de usuario", size="1"),
-            ),
-            rx.form(
-                rx.text("Contraseña"),
-                rx.input(type="password",
-                         placeholder="Ingrese contraseña", size="1"),
-            ),
-            rx.form(
-                rx.text("ID de Personal"),
-                rx.input(type="number",
-                         placeholder="Ingrese ID de personal", size="1"),
-            ),
-            rx.hstack(
-                rx.button("Guardar", color_scheme="blue"),
-                rx.button("Cancelar", variant="outline"),
-                spacing="4",
-            ),
-            spacing="4",
-            padding="6",
-            width="100%",
-        ),
-        width="container.md",
-    ),
-'''

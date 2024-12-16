@@ -2,50 +2,29 @@ import reflex as rx
 from .. import styles
 from ..templates import template
 
-from ..components.login_form import login_default
-from ..components.user_form import index_usuario_component
-
-
-class LoginState(rx.State):
-    logged_in: bool = False
-
-    @rx.event
-    def toggle_login(self):
-        self.logged_in = not self.logged_in
-
-
-def tab_content_header() -> rx.Component:
-    return rx.hstack(
-        align="center",
-        width="100%",
-        spacing="4",
-    )
-
-
-def show_login():
-    return rx.box(
-        rx.cond(
-            LoginState.logged_in,
-            rx.heading("Logged In"),
-            rx.heading("Not Logged In"),
-        ),
-        rx.button(
-            "Toggle Login", on_click=LoginState.toggle_login
-        ),
-    )
-
-# on_load=StatsState.randomize_data
+from ..components.auth.state import SessionState
+from ..components.auth.login_form import login_form
+from ..components.auth.register_form import register_form
 
 
 @template(route="/", title="Inicio")
 def index() -> rx.Component:
-    """The overview page.
 
-    Returns:
-        The UI for the overview page.
-    """
+    form_to_show = rx.cond(
+        SessionState.autenticated_state,
+        rx.text("autenticado"), rx.cond(
+            SessionState.SHOW_LOGIN_OR_REGISTER,
+            login_form(),
+            register_form()))
+
     return rx.vstack(
-        login_default(),
-        index_usuario_component(),
-        show_login()
+        form_to_show,
+        rx.center(
+            opacity="0.8",
+            spacing="2",
+            direction="row",
+            width="100%",
+        ),
+        spacing="6",
+        width="100%",
     )
