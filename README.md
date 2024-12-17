@@ -1,4 +1,4 @@
-# SistBatInteg
+# SistIntegPerlaNegra
 
 django-admin startproject myproject
 django-admin startapp blog
