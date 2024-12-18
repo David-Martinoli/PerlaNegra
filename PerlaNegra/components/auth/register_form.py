@@ -106,9 +106,9 @@ class RegisterState(rx.State):
 
 
 def register_form() -> rx.Component:
-    return rx.form(
-        rx.card(
-            rx.vstack(
+    return rx.card(
+        rx.vstack(
+            rx.form(
                 rx.center(
                     rx.image(
                         src="/logo.jpg",
@@ -134,10 +134,10 @@ def register_form() -> rx.Component:
                         weight="medium",
                         text_align="left",
                         width="100%",
-                        name="nombre_usuario",
                     ),
                     rx.input(
                         rx.input.slot(rx.icon("user")),
+                        name="nombre_usuario",
                         placeholder="your username",
                         on_change=RegisterState.set_user_name,
                         type="text",
@@ -155,10 +155,10 @@ def register_form() -> rx.Component:
                         weight="medium",
                         text_align="left",
                         width="100%",
-                        name="hash_contrasena",
                     ),
                     rx.input(
                         rx.input.slot(rx.icon("lock")),
+                        name="hash_contrasena",
                         placeholder="Enter your password",
                         type=rx.cond(RegisterState.SHOW_PASSWORD,
                                      "text", "password"),
@@ -237,11 +237,12 @@ def register_form() -> rx.Component:
                 ),
                 spacing="6",
                 width="100%",
+                on_submit=UsuarioService.add_user,
+                reset_on_submit=True,
             ),
         ),
         max_width="28em",
         size="4",
         width="100%",
-        on_submit=UsuarioService.add_user,
-        reset_on_submit=True,
+
     )
