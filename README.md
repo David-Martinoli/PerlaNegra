@@ -100,7 +100,8 @@ sudo apt install python3-venv python3-pip
 python3 -m venv .env
 source .venv/Scripts/activate
 python -m pip install -U pip
-pip install reflex alembic reflex-local-auth 
+pip install reflex alembic reflex-local-auth reflex-chakra
+
 ```
 Desde cursor si al activar el entorno virtual da error se debe ejecutar:
 ```bash

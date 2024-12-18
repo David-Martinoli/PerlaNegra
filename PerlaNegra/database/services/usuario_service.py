@@ -3,6 +3,7 @@ import reflex as rx
 from datetime import datetime, timezone
 from typing import Optional, Tuple
 from sqlmodel import Session, select
+from typing import Any
 
 from ..models.permisos.usuario import Usuario
 
@@ -21,7 +22,26 @@ class UsuarioService(rx.State):
     name: str
     users: list[Usuario]
 
-    @rx.event
+    user: str
+    passw: str
+
+    user: Usuario | None = None
+
+    def add_user(self, form_data: dict[str, Any]):
+        with rx.session() as session:
+            self.user = Usuario(**form_data)
+            print(form_data)
+            print(form_data.keys())   # Imprime las claves
+            print(form_data.values())  # Imprime los valores
+
+            print("DEBUGGG ========")
+            print(self.user)
+            print(str(self.user.nombre_usuario) +
+                  "////" + str(self.user.hash_contrasena))
+            session.add(self.user)
+            session.commit()
+            session.refresh(self.user)
+
     def select_all(self):
         with rx.session() as session:
             query = select(Usuario)
@@ -38,11 +58,20 @@ class UsuarioService(rx.State):
                 )
             ).all()
 
+    @staticmethod
+    @rx.event
+    def crear_usuario(self):
+        with rx.session() as session:
+            session.add(Usuario(nombre_usuario=self.user,
+                        hash_contrasena=self.passw
+                                )
+                        )
+            session.commit()
+
     @ staticmethod
-    async def crear_usuario(
+    def crear_usuario2(
         nombre_usuario: str,
         contrasena: str,
-        personal_id: int
     ) -> Tuple[Optional[Usuario], str]:
         """
         Crea un nuevo usuario en la base de datos.
@@ -52,7 +81,7 @@ class UsuarioService(rx.State):
         """
         try:
             # Verificar si el usuario ya existe
-            usuario_existente = await Usuario.select().where(
+            usuario_existente = Usuario.select().where(
                 Usuario.nombre_usuario == nombre_usuario
             ).first()
 
@@ -63,13 +92,13 @@ class UsuarioService(rx.State):
             nuevo_usuario = Usuario(
                 nombre_usuario=nombre_usuario,
                 hash_contrasena=contrasena,
-                personal_id=personal_id,
+                # personal_id=personal_id,
                 creado_en=datetime.now(timezone.utc),
                 cambiar_contrasena=False
             )
 
             # Guardar en la base de datos
-            await nuevo_usuario.save()
+            nuevo_usuario.save()
             return nuevo_usuario, ""
 
         except Exception as e:

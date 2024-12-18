@@ -9,6 +9,7 @@ from ..components.auth.register_form import register_form
 
 @template(route="/", title="Inicio")
 def index() -> rx.Component:
+    #rx.text(rx.Var())
 
     form_to_show = rx.cond(
         SessionState.autenticated_state,
