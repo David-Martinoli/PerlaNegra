@@ -5,7 +5,6 @@ assets/external/
 *.py[cod]
 .cursorignore
 .venv/
-.vscode/
 .web
 __pycache__/
 venv/
@@ -13,5 +12,4 @@ env/
 .venv/
 .env/
 alembic/
-alembic.ini
 alembic.ini

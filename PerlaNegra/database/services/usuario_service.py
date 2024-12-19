@@ -30,14 +30,6 @@ class UsuarioService(rx.State):
     def add_user(self, form_data: dict[str, Any]):
         with rx.session() as session:
             self.user = Usuario(**form_data)
-            print(form_data)
-            print(form_data.keys())   # Imprime las claves
-            print(form_data.values())  # Imprime los valores
-
-            print("DEBUGGG ========")
-            print(self.user)
-            print(str(self.user.nombre_usuario) +
-                  "////" + str(self.user.hash_contrasena))
             session.add(self.user)
             session.commit()
             session.refresh(self.user)

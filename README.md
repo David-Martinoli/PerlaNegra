@@ -18,10 +18,10 @@ Este es un sistema de gestion para la empresa Sistema integral Perla Negra.
     │   ├── __init__.py
     │   ├── admin
     │   │   ├── __init__.py
-    │   │   ├── 
+    │   │   ├──
     │   ├── user
     │   │   ├── __init__.py
-    │   │   ├── 
+    │   │   ├──
     │   ├── about.py
     │   ├── index.py
     │   ├── profile.py
@@ -103,7 +103,9 @@ python -m pip install -U pip
 pip install reflex alembic reflex-local-auth reflex-chakra
 
 ```
+
 Desde cursor si al activar el entorno virtual da error se debe ejecutar:
+
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 o
@@ -111,28 +113,32 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 ```
 
 Para instalar dependencias desde requirements.txt:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 Para generar un nuevo requirements.txt:
+
 ```bash
 pip freeze > requirements.txt
 ```
 
 Actualización de Dependencias (si es necesario)
+
 ```bash
 python.exe -m pip install --upgrade pip
 pip install --upgrade reflex alembic reflex-local-auth
 ```
 
 Para ejecutar la aplicación:
+
 ```bash
 reflex run
 ```
 
-
 ##### Migraciones
+
 ```bash
   reflex db init  inicializa la base de datos
   init            Crear esquema de base de datos y configuración de migración.
@@ -150,3 +156,30 @@ Antes de poder usar la función de base de datos en una nueva aplicación, debe 
 Después de realizar cambios en el esquema, utilice reflex db makemigrations --message 'something changed' para generar un script en el alembic/versionsdirectorio que actualizará el esquema de la base de datos. Se recomienda inspeccionar los scripts antes de aplicarlos.
 
 El reflex db migratecomando se utiliza para aplicar scripts de migración para actualizar la base de datos. Durante el inicio de la aplicación, si Reflex detecta que el esquema de la base de datos actual no está actualizado, se mostrará una advertencia en la consola.
+
+###### DEBUG REFLEX
+
+NOTA: Se agrega la carpeta .vscode para mantener la configuracion personalizada del entorno de desarrollo.
+En launch.json se alcmacena la configuracion para poder depurar el proyecto reflex. No se recomienda su elimacion
+En config.json se almcancenan otras configuraciones de vscode. si se desea se puede eliminar
+
+Para agregar a su configuracion actual crear el archivo launch.json dentro de la carpeta .vscode del proyecto y adicionar el siguiente codigo.
+
+```json
+{
+  // Use IntelliSense para saber los atributos posibles.
+  // Mantenga el puntero para ver las descripciones de los existentes atributos.
+  // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Reflex",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "Reflex",
+      "args": ["run", "--env", "dev"],
+      "justMyCode": true
+    }
+  ]
+}
+```

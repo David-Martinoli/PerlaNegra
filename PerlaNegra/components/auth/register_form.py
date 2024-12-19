@@ -106,9 +106,10 @@ class RegisterState(rx.State):
 
 
 def register_form() -> rx.Component:
-    return rx.card(
-        rx.vstack(
-            rx.form(
+    return rx.form(
+        rx.card(
+            rx.vstack(
+
                 rx.center(
                     rx.image(
                         src="/logo.jpg",
@@ -237,12 +238,12 @@ def register_form() -> rx.Component:
                 ),
                 spacing="6",
                 width="100%",
-                on_submit=UsuarioService.add_user,
-                reset_on_submit=True,
             ),
         ),
         max_width="28em",
         size="4",
         width="100%",
+        on_submit=UsuarioService.add_user,
+        reset_on_submit=True,
 
     )

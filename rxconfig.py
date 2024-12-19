@@ -4,6 +4,7 @@ from reflex import Config
 
 class MyAppConfig(Config):
     db_url: str = "sqlite:///PerlaNegraDB.db"
+    ASYNC_DB_URL: str = "sqlite:///PerlaNegraDB.db"
     # db_url: str = "sqlite:///:memory:"
     app_name: str = "PerlaNegra"
     env: str = "dev"    # Use "prod" for production
