@@ -97,8 +97,8 @@ Puedes definir subestados en sus propios archivos, o si el estado es específico
 
 ```bash
 sudo apt install python3-venv python3-pip
-python3 -m venv .env
-source .venv/Scripts/activate
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -U pip
 pip install reflex alembic reflex-local-auth reflex-chakra
 
@@ -173,7 +173,7 @@ Para agregar a su configuracion actual crear el archivo launch.json dentro de la
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Reflex",
+      "name": "Reflex Debug",
       "type": "debugpy",
       "request": "launch",
       "module": "Reflex",
