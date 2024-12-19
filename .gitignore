@@ -14,4 +14,3 @@ env/
 .env/
 alembic/
 alembic.ini
-alembic.ini
