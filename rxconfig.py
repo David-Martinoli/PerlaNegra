@@ -7,7 +7,7 @@ class MyAppConfig(Config):
     ASYNC_DB_URL: str = "sqlite:///PerlaNegraDB.db"
     # db_url: str = "sqlite:///:memory:"
     app_name: str = "PerlaNegra"
-    env: str = "dev"    # Use "prod" for production
+    env: str = "dev"  # Use "prod" for production
     debug: bool = True  # Set to False in production
     deploy_url = "https://reflex.dev"
     # loglevel: LogLevel = LogLevel.DEFAULT

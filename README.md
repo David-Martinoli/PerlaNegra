@@ -18,10 +18,10 @@ Este es un sistema de gestion para la empresa Sistema integral Perla Negra.
     │   ├── __init__.py
     │   ├── admin
     │   │   ├── __init__.py
-    │   │   ├──
+    │   │   ├── 
     │   ├── user
     │   │   ├── __init__.py
-    │   │   ├──
+    │   │   ├── 
     │   ├── about.py
     │   ├── index.py
     │   ├── profile.py
@@ -103,9 +103,7 @@ python -m pip install -U pip
 pip install reflex alembic reflex-local-auth reflex-chakra
 
 ```
-
 Desde cursor si al activar el entorno virtual da error se debe ejecutar:
-
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 o
@@ -113,32 +111,28 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 ```
 
 Para instalar dependencias desde requirements.txt:
-
 ```bash
 pip install -r requirements.txt
 ```
 
 Para generar un nuevo requirements.txt:
-
 ```bash
 pip freeze > requirements.txt
 ```
 
 Actualización de Dependencias (si es necesario)
-
 ```bash
 python.exe -m pip install --upgrade pip
 pip install --upgrade reflex alembic reflex-local-auth
 ```
 
 Para ejecutar la aplicación:
-
 ```bash
 reflex run
 ```
 
-##### Migraciones
 
+##### Migraciones
 ```bash
   reflex db init  inicializa la base de datos
   init            Crear esquema de base de datos y configuración de migración.
@@ -183,3 +177,4 @@ Para agregar a su configuracion actual crear el archivo launch.json dentro de la
   ]
 }
 ```
+

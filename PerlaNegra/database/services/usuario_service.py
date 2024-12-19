@@ -1,4 +1,5 @@
 """Módulo que contiene los servicios relacionados con la gestión de usuarios."""
+
 import reflex as rx
 from datetime import datetime, timezone
 from typing import Optional, Tuple
@@ -45,22 +46,17 @@ class UsuarioService(rx.State):
     def select_user(self):
         with rx.session() as session:
             self.users = session.exec(
-                Usuario.select().where(
-                    Usuario.nombre_usuario.__contains__(self.name)
-                )
+                Usuario.select().where(Usuario.nombre_usuario.__contains__(self.name))
             ).all()
 
     @staticmethod
     @rx.event
     def crear_usuario(self):
         with rx.session() as session:
-            session.add(Usuario(nombre_usuario=self.user,
-                        hash_contrasena=self.passw
-                                )
-                        )
+            session.add(Usuario(nombre_usuario=self.user, hash_contrasena=self.passw))
             session.commit()
 
-    @ staticmethod
+    @staticmethod
     def crear_usuario2(
         nombre_usuario: str,
         contrasena: str,
@@ -73,9 +69,9 @@ class UsuarioService(rx.State):
         """
         try:
             # Verificar si el usuario ya existe
-            usuario_existente = Usuario.select().where(
-                Usuario.nombre_usuario == nombre_usuario
-            ).first()
+            usuario_existente = (
+                Usuario.select().where(Usuario.nombre_usuario == nombre_usuario).first()
+            )
 
             if usuario_existente:
                 return None, "El nombre de usuario ya está en uso"
@@ -86,7 +82,7 @@ class UsuarioService(rx.State):
                 hash_contrasena=contrasena,
                 # personal_id=personal_id,
                 creado_en=datetime.now(timezone.utc),
-                cambiar_contrasena=False
+                cambiar_contrasena=False,
             )
 
             # Guardar en la base de datos
