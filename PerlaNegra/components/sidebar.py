@@ -14,8 +14,8 @@ def sidebar_header() -> rx.Component:
     return rx.hstack(
         # The logo.
         rx.color_mode_cond(
-            rx.image(src="/reflex_black.svg", height="1.5em"),
-            rx.image(src="/reflex_white.svg", height="1.5em"),
+            rx.image(src="/perla_negra_logo_black.svg", height="3.5em"),
+            rx.image(src="/perla_negra_logo_white.svg", height="3.5em"),
         ),
         rx.spacer(),
         align="center",

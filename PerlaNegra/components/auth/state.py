@@ -1,8 +1,10 @@
 import reflex as rx
+
 # import reflex_local_auth
 # import sqlmodel
 
 from sqlmodel import select
+
 # from sqlmodel import Field, Relationship
 from ...database.models.permisos.usuario import Usuario
 
@@ -23,14 +25,20 @@ class SessionState(rx.State):
             return True
         return False
 
+    @rx.event
+    def aut(self) -> bool:
+        return self.AUTENTICATED_STATE
+
     @rx.var(cache=True)
     def autenticate(self) -> bool:
         with rx.session() as session:
             result = session.exec(
                 # select(Usuario).where(
                 #    Usuario.nombre_usuario == userName and Usuario.hash_contrasena == password
-                Usuario.select().where(Usuario.nombre_usuario ==
-                                       self.USER_NAME_FOR_LOGIN and Usuario.hash_contrasena == self.PASSWORD_FOR_LOGIN)
+                Usuario.select().where(
+                    Usuario.nombre_usuario == self.USER_NAME_FOR_LOGIN
+                    and Usuario.hash_contrasena == self.PASSWORD_FOR_LOGIN
+                )
             ).first()
 
             if result.nombre_usuario != "":

@@ -35,8 +35,7 @@ class RegisterState(rx.State):
         #        "Password must contain at least one uppercase letter.")
 
         if not re.search(r"[a-z]", pass1):
-            messages.append(
-                "Password must contain at least one lowercase letter.")
+            messages.append("Password must contain at least one lowercase letter.")
 
         if not re.search(r"[0-9]", pass1):
             messages.append("Password must contain at least one number.")
@@ -95,7 +94,8 @@ class RegisterState(rx.State):
 
         # Llama al servicio para crear el usuario
         nuevo_usuario, mensaje_error = UsuarioService.crear_usuario(
-            self.user_name, self.password)
+            self.user_name, self.password
+        )
 
         if nuevo_usuario:
             self.registration_message = "Usuario registrado exitosamente."
@@ -106,16 +106,10 @@ class RegisterState(rx.State):
 
 
 def register_form() -> rx.Component:
-    return rx.card(
-        rx.vstack(
-            rx.form(
+    return rx.form(
+        rx.card(
+            rx.vstack(
                 rx.center(
-                    rx.image(
-                        src="/logo.jpg",
-                        width="2.5em",
-                        height="auto",
-                        border_radius="25%",
-                    ),
                     rx.heading(
                         "Create an account (register_form)",
                         size="6",
@@ -160,18 +154,19 @@ def register_form() -> rx.Component:
                         rx.input.slot(rx.icon("lock")),
                         name="hash_contrasena",
                         placeholder="Enter your password",
-                        type=rx.cond(RegisterState.SHOW_PASSWORD,
-                                     "text", "password"),
+                        type=rx.cond(RegisterState.SHOW_PASSWORD, "text", "password"),
                         size="3",
                         width="100%",
                         on_change=RegisterState.set_password,
-                        style={"border": "2px solid " +
-                               rx.cond(RegisterState.is_passwords_equal, "green", "red")},
+                        style={
+                            "border": "2px solid "
+                            + rx.cond(RegisterState.is_passwords_equal, "green", "red")
+                        },
                     ),
                     rx.unordered_list(
                         rx.foreach(
                             RegisterState.password_validation_messages,
-                            lambda msg: rx.list_item(msg)
+                            lambda msg: rx.list_item(msg),
                         )
                     ),
                     justify="start",
@@ -189,13 +184,14 @@ def register_form() -> rx.Component:
                     rx.input(
                         rx.input.slot(rx.icon("lock")),
                         placeholder="Repeat your password",
-                        type=rx.cond(RegisterState.SHOW_PASSWORD,
-                                     "text", "password"),
+                        type=rx.cond(RegisterState.SHOW_PASSWORD, "text", "password"),
                         size="3",
                         width="100%",
                         on_change=RegisterState.set_confirm_password,
-                        style={"border": "2px solid " +
-                               rx.cond(RegisterState.is_passwords_equal, "green", "red")},
+                        style={
+                            "border": "2px solid "
+                            + rx.cond(RegisterState.is_passwords_equal, "green", "red")
+                        },
                     ),
                     justify="start",
                     spacing="2",
@@ -206,7 +202,8 @@ def register_form() -> rx.Component:
                         "Mostrar contraseñas",
                         default_checked=RegisterState.SHOW_PASSWORD,
                         spacing="2",
-                        on_change=RegisterState.set_show_password),
+                        on_change=RegisterState.set_show_password,
+                    ),
                     width="100%",
                 ),
                 rx.button(
@@ -214,22 +211,20 @@ def register_form() -> rx.Component:
                     size="3",
                     width="100%",
                     type="submit",
-                    # on_click=RegisterState.register_new_user,
-                    disabled=rx.cond(
-                        RegisterState.is_passwords_equal, True, False),
+                    disabled=rx.cond(RegisterState.is_passwords_equal, True, False),
                 ),
                 rx.text(
                     RegisterState.registration_message,
                     size="3",
-                    color=rx.cond(RegisterState.registration_message,
-                                  "green", "red"),
+                    color=rx.cond(RegisterState.registration_message, "green", "red"),
                     text_align="center",
                     width="100%",
                 ),
                 rx.center(
                     rx.text("Already registered?", size="3"),
-                    rx.link("Sign in", href="#", size="3",
-                            on_click=SessionState.toggle_form),
+                    rx.link(
+                        "Sign in", href="#", size="3", on_click=SessionState.toggle_form
+                    ),
                     opacity="0.8",
                     spacing="2",
                     direction="row",
@@ -237,12 +232,11 @@ def register_form() -> rx.Component:
                 ),
                 spacing="6",
                 width="100%",
-                on_submit=UsuarioService.add_user,
-                reset_on_submit=True,
             ),
         ),
         max_width="28em",
         size="4",
         width="100%",
-
+        on_submit=UsuarioService.add_user,
+        reset_on_submit=True,
     )

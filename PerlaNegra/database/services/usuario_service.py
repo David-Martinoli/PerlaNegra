@@ -28,19 +28,54 @@ class UsuarioService(rx.State):
 
     user: Usuario | None = None
 
+    @rx.event
+    def login_handle_submit(self, form_data: dict[str, Any]):
+        if self.aut:
+            self.router.page.path == "/"
+        else:
+            UsuarioService.login(self, form_data)
+
+    @rx.event
+    def login(self, form_data: dict[str, Any]):
+        user = self.get_user_by_username(form_data["nombre_usuario"])
+        print(form_data)
+        if user:
+            if user.hash_contrasena == form_data["contrasena"]:
+                return user
+        return None
+
+    @rx.event
     def add_user(self, form_data: dict[str, Any]):
+        get_user_by_username = self.get_user_by_username(form_data["nombre_usuario"])
+        if not get_user_by_username:
+            self._create_user(form_data)
+
+    # privada, no debe ser llamada desde fuera de la clase
+    def _create_user(self, form_data: dict[str, Any]):
         with rx.session() as session:
             self.user = Usuario(**form_data)
             session.add(self.user)
             session.commit()
             session.refresh(self.user)
 
+    def get_user(self, user_id: int) -> Usuario | None:
+        with rx.session() as session:
+            return session.get(Usuario, user_id)
+
+    def get_user_by_username(self, username: str) -> Usuario | None:
+        with rx.session() as session:
+            return session.exec(
+                Usuario.select().where(Usuario.nombre_usuario == username)
+            ).first()
+
+    """
     def select_all(self):
         with rx.session() as session:
             query = select(Usuario)
             result = session.exec(query)
             usuarios = result.scalars().all()
             return list(usuarios)
+    """
 
     @rx.event
     def select_user(self):
@@ -55,41 +90,3 @@ class UsuarioService(rx.State):
         with rx.session() as session:
             session.add(Usuario(nombre_usuario=self.user, hash_contrasena=self.passw))
             session.commit()
-
-    @staticmethod
-    def crear_usuario2(
-        nombre_usuario: str,
-        contrasena: str,
-    ) -> Tuple[Optional[Usuario], str]:
-        """
-        Crea un nuevo usuario en la base de datos.
-
-        Returns:
-            Tupla (Usuario, mensaje_error). Si hay error, Usuario será None
-        """
-        try:
-            # Verificar si el usuario ya existe
-            usuario_existente = (
-                Usuario.select().where(Usuario.nombre_usuario == nombre_usuario).first()
-            )
-
-            if usuario_existente:
-                return None, "El nombre de usuario ya está en uso"
-
-            # Crear nuevo usuario
-            nuevo_usuario = Usuario(
-                nombre_usuario=nombre_usuario,
-                hash_contrasena=contrasena,
-                # personal_id=personal_id,
-                creado_en=datetime.now(timezone.utc),
-                cambiar_contrasena=False,
-            )
-
-            # Guardar en la base de datos
-            nuevo_usuario.save()
-            return nuevo_usuario, ""
-
-        except Exception as e:
-            error_msg = f"Error inesperado: {str(e)}"
-            print(error_msg)
-            return None, error_msg

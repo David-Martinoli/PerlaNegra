@@ -123,7 +123,7 @@ pip freeze > requirements.txt
 Actualización de Dependencias (si es necesario)
 ```bash
 python.exe -m pip install --upgrade pip
-pip install --upgrade reflex alembic reflex-local-auth
+pip install --upgrade reflex alembic reflex-local-auth reflex-chakra
 ```
 
 Para ejecutar la aplicación:
