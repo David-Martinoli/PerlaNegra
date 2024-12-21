@@ -1,5 +1,4 @@
 """The about page."""
-import reflex_local_auth
 
 from .. import styles
 from ..templates import template

@@ -1,7 +1,10 @@
+from ... import styles
+from ...templates import template
+
 import reflex as rx
 import re
 
-from ...components.auth.state import SessionState
+from ...components.auth.local_auth_state import LocalAuthState
 from ...database.services.usuario_service import UsuarioService
 
 
@@ -85,33 +88,15 @@ class RegisterState(rx.State):
     def set_user_name(self, value: str):
         self.user_name = value
 
-    @rx.event
-    def register_new_user(self):
-        """Registra un nuevo usuario en el sistema."""
-        if not self.is_passwords_equal:
-            self.registration_message = "Las contraseñas no coinciden."
-            pass
 
-        # Llama al servicio para crear el usuario
-        nuevo_usuario, mensaje_error = UsuarioService.crear_usuario(
-            self.user_name, self.password
-        )
-
-        if nuevo_usuario:
-            self.registration_message = "Usuario registrado exitosamente."
-            pass
-        else:
-            self.registration_message = mensaje_error
-            pass
-
-
-def register_form() -> rx.Component:
+@template(route="/sign_up", title="Sign Up")
+def sign_up() -> rx.Component:
     return rx.form(
         rx.card(
             rx.vstack(
                 rx.center(
                     rx.heading(
-                        "Create an account (register_form)",
+                        "Create an account",
                         size="6",
                         as_="h2",
                         text_align="center",
@@ -223,7 +208,10 @@ def register_form() -> rx.Component:
                 rx.center(
                     rx.text("Already registered?", size="3"),
                     rx.link(
-                        "Sign in", href="#", size="3", on_click=SessionState.toggle_form
+                        "Sign in",
+                        href="#",
+                        size="3",
+                        on_click=rx.redirect("/sign_in"),
                     ),
                     opacity="0.8",
                     spacing="2",

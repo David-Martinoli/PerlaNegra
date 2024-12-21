@@ -1,16 +1,20 @@
 import reflex as rx
 
-from ...components.auth.state import SessionState
+from ... import styles
+from ...templates import template
+
+
 from ...database.services.usuario_service import UsuarioService
 
 
-def login_form() -> rx.Component:
+@template(route="/sign_in", title="Sign in")
+def sign_in() -> rx.Component:
     return rx.form(
         rx.card(
             rx.vstack(
                 rx.center(
                     rx.heading(
-                        "Sign in to your account (loggin_form)",
+                        "Sign in to your account",
                         size="6",
                         as_="h2",
                         text_align="center",
@@ -22,7 +26,7 @@ def login_form() -> rx.Component:
                 ),
                 rx.vstack(
                     rx.text(
-                        "Email address",
+                        "User name",
                         size="3",
                         weight="medium",
                         text_align="left",
@@ -31,7 +35,7 @@ def login_form() -> rx.Component:
                     rx.input(
                         rx.input.slot(rx.icon("user")),
                         name="nombre_usuario",
-                        placeholder="user name",
+                        placeholder="Your user name here",
                         type="text",
                         size="3",
                         width="100%",
@@ -46,16 +50,13 @@ def login_form() -> rx.Component:
                             size="3",
                             weight="medium",
                         ),
-                        rx.link(
-                            "Forgot password?",
-                            href="#",
-                            size="3",
-                        ),
+                        # rx.link("Forgot password?",href="#",size="3",),
                         justify="between",
                         width="100%",
                     ),
                     rx.input(
                         rx.input.slot(rx.icon("lock")),
+                        name="hash_contrasena",
                         placeholder="Enter your password",
                         type="password",
                         size="3",
@@ -68,7 +69,10 @@ def login_form() -> rx.Component:
                 rx.center(
                     rx.text("New here?", size="3"),
                     rx.link(
-                        "Sign up", href="#", size="3", on_click=SessionState.toggle_form
+                        "Sign up",
+                        href="#",
+                        size="3",
+                        on_click=rx.redirect("/sign_up"),
                     ),
                     opacity="0.8",
                     spacing="2",
@@ -83,6 +87,6 @@ def login_form() -> rx.Component:
             width="100%",
         ),
         # on_submit=UsuarioService.login,
-        on_submit=UsuarioService.login_handle_submit,
+        # on_submit=UsuarioService.login_handle_submit,
         reset_on_submit=True,
     )
