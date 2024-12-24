@@ -9,7 +9,8 @@ class LocalAuthState(rx.State):
     # USER_NAME_FOR_LOGIN: str = ""
     # PASSWORD_FOR_LOGIN: str = ""
 
-    def _change_autenticate_state(self) -> bool:
+    @rx.event
+    def change_autenticate_state(self) -> bool:
         if self.AUTENTICATED_STATE:
             return True
         return False

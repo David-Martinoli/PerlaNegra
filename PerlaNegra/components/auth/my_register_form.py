@@ -3,9 +3,13 @@ from ...templates import template
 
 import reflex as rx
 import re
+import reflex_local_auth
 
-from ...components.auth.local_auth_state import LocalAuthState
+from typing import Any
+from ..auth_old.local_auth_state import LocalAuthState
 from ...database.services.usuario_service import UsuarioService
+
+from .state import MyRegisterState
 
 
 class RegisterState(rx.State):
@@ -88,9 +92,32 @@ class RegisterState(rx.State):
     def set_user_name(self, value: str):
         self.user_name = value
 
+    """
+    @rx.event
+    def submit(self, form_data: dict[str, Any]):
+        result = UsuarioService.add_user(form_data)
+        print(f"Resultado del registro: {result}")
+        if result:
+            LocalAuthState.change_autenticate_state()
+            f"Estado cambiado: {LocalAuthState.AUTENTICATED_STATE}"
+"""
 
-@template(route="/sign_up", title="Sign Up")
-def sign_up() -> rx.Component:
+
+def register_error() -> rx.Component:
+    """Render the registration error message."""
+    return rx.cond(
+        reflex_local_auth.RegistrationState.error_message != "",
+        rx.callout(
+            reflex_local_auth.RegistrationState.error_message,
+            icon="triangle_alert",
+            color_scheme="red",
+            role="alert",
+            width="100%",
+        ),
+    )
+
+
+def my_register_form() -> rx.Component:
     return rx.form(
         rx.card(
             rx.vstack(
@@ -168,6 +195,7 @@ def sign_up() -> rx.Component:
                     ),
                     rx.input(
                         rx.input.slot(rx.icon("lock")),
+                        name="confirm_password",
                         placeholder="Repeat your password",
                         type=rx.cond(RegisterState.SHOW_PASSWORD, "text", "password"),
                         size="3",
@@ -211,7 +239,7 @@ def sign_up() -> rx.Component:
                         "Sign in",
                         href="#",
                         size="3",
-                        on_click=rx.redirect("/sign_in"),
+                        on_click=rx.redirect(reflex_local_auth.routes.LOGIN_ROUTE),
                     ),
                     opacity="0.8",
                     spacing="2",
@@ -225,6 +253,6 @@ def sign_up() -> rx.Component:
         max_width="28em",
         size="4",
         width="100%",
-        on_submit=UsuarioService.add_user,
+        on_submit=MyRegisterState.handle_registration_username,
         reset_on_submit=True,
     )
