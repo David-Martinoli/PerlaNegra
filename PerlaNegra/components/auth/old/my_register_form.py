@@ -1,15 +1,15 @@
-from ... import styles
-from ...templates import template
+from .... import styles
+from ....templates import template
 
 import reflex as rx
 import re
 import reflex_local_auth
 
 from typing import Any
-from ..auth_old.local_auth_state import LocalAuthState
-from ...database.services.usuario_service import UsuarioService
+from ...auth_old.local_auth_state import LocalAuthState
+from ....database.services.usuario_service import UsuarioService
 
-from .state import MyRegisterState
+from ..state import MyRegisterState
 
 
 class RegisterState(rx.State):

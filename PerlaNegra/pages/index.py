@@ -1,6 +1,8 @@
 import reflex as rx
 import reflex_local_auth
 
+from PerlaNegra.components.sanidad.declaracion_jurada import declaracion_jurada_form
+
 from ..components.auth.state import ProtectedState, SessionState
 from ..templates import template
 
@@ -12,6 +14,7 @@ from ..components.auth_old.local_auth_state import LocalAuthState
 def index() -> rx.Component:
     return rx.vstack(
         rx.center(
+            # declaracion_jurada_form(),
             rx.cond(
                 SessionState.is_authenticated,
                 # LocalAuthState.is_authenticated,

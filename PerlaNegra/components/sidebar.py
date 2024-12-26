@@ -33,7 +33,7 @@ def sidebar_footer() -> rx.Component:
     """
     return rx.hstack(
         rx.link(
-            rx.text("Docs", size="3"),
+            rx.text("Sanidadddd", size="3"),
             href="https://reflex.dev/docs/getting-started/introduction/",
             color_scheme="gray",
             underline="none",

@@ -3,6 +3,8 @@
 0
 # Import all the pages.
 import reflex_local_auth
+
+from .components.auth.pages import my_logout_page
 from .pages import *
 from . import styles
 
@@ -24,4 +26,10 @@ app.add_page(
     reflex_local_auth.pages.register_page,
     route=reflex_local_auth.routes.REGISTER_ROUTE,
     title="Register",
+)
+
+app.add_page(
+    my_logout_page,
+    route="log_out",
+    title="Logout",
 )

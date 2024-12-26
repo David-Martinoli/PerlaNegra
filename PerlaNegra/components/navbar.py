@@ -81,7 +81,7 @@ def navbar_footer() -> rx.Component:
     """
     return rx.hstack(
         rx.link(
-            rx.text("Docs", size="3"),
+            rx.text("Sanidad", size="3"),
             href="https://reflex.dev/docs/getting-started/introduction/",
             color_scheme="gray",
             underline="none",
@@ -184,6 +184,7 @@ def navbar() -> rx.Component:
                 rx.image(src="/perla_negra_logo_white.svg", height="3em"),
             ),
             rx.spacer(),
+            rx.text("Sanidad", size="3"),
             menu_button(),
             align="center",
             width="100%",
