@@ -1,10 +1,12 @@
+# database/models/personal.py
 import reflex as rx
 from sqlmodel import Field
 from datetime import date, datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
 
 
-class PersonalR(rx.Model, TimestampMixin, table=True):
+class Seguro(rx.Model, TimestampMixin, table=True):
     id: int = Field(primary_key=True)
-    PersonalR_id: int = Field(foreign_key="personal_r.id")
-    PersonalS_id: int = Field(foreign_key="personal_s.id")
+    nombre: str
+    descripcion: str
+    created_at: datetime = datetime.now(timezone.utc)

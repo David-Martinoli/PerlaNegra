@@ -39,6 +39,8 @@ from .personal.compania import Compania
 from .personal.cuadro import Cuadro
 from .personal.direccion import Direccion
 from .personal.movimiento_personal import MovimientoPersonal
-from .personal.personal_r import Personal
+from .personal.personal_r import PersonalR
+from .personal.personal_s import PersonalS
+
 
 # Models

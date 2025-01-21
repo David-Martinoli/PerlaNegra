@@ -16,7 +16,7 @@ class Usuario(TimestampMixin, rx.Model, table=True):
         nombre_usuario (str): Nombre de usuario para iniciar sesión
         hash_contrasena (str): Hash de la contraseña del usuario
         cambiar_contrasena (bool): Indica si el usuario debe cambiar su contraseña
-        creado_en (datetime): Fecha y hora de creación del usuario
+        created_at (datetime): Fecha y hora de creación del usuario
     """
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -26,7 +26,7 @@ class Usuario(TimestampMixin, rx.Model, table=True):
     nombre_usuario: str = Field(nullable=False)
     hash_contrasena: str = Field(nullable=False)
     cambiar_contrasena: bool = Field(default=False)
-    creado_en: datetime = Field(
+    created_at: datetime = Field(
         sa_column_kwargs={"server_default": "CURRENT_TIMESTAMP"},
         default_factory=lambda: datetime.now(timezone.utc),
     )
@@ -39,5 +39,5 @@ class Usuario(TimestampMixin, rx.Model, table=True):
         server_default=text('0')
     )
 
-    creado_en: datetime = Field(default=lambda: datetime.now(timezone.utc))
+    created_at: datetime = Field(default=lambda: datetime.now(timezone.utc))
     """

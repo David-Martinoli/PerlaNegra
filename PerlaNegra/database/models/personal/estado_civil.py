@@ -8,4 +8,4 @@ from ..mixins.timestamp_mixin import TimestampMixin
 class EstadoCivil(rx.Model, TimestampMixin, table=True):
     id: int = Field(primary_key=True)
     nombre: str
-    creado_en: datetime = datetime.now(timezone.utc)
+    created_at: datetime = datetime.now(timezone.utc)

@@ -11,10 +11,7 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
     apellido: str
     fecha_nacimiento: date
     dni: str
-    # numero_legajo: str
-    # categoria_personal_id: int = Field(foreign_key='categoriapersonal.id')
-
-    creado_en: datetime = datetime.now(timezone.utc)
-    actualizado_en: datetime = datetime.now(timezone.utc)
+    created_at: datetime = datetime.now(timezone.utc)
+    updated_at: datetime = datetime.now(timezone.utc)
     estado_civil_id: int = Field(foreign_key="estadocivil.id")
     cantidad_hijos: int = 0

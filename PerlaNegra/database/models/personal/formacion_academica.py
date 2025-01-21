@@ -5,10 +5,10 @@ from datetime import date, datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
 
 
-class FornacionAcademica(rx.Model, TimestampMixin, table=True):
+class FormacionAcademica(rx.Model, TimestampMixin, table=True):
     id: int = Field(primary_key=True)
     nombre_titulo: str
     descripcion: str
-
-    creado_en: datetime = datetime.now(timezone.utc)
-    estado_civil_id: int = Field(foreign_key="estadocivil.id")
+    fecha_egreso: date
+    personal_id: int = Field(foreign_key="personal.id")  # personalR
+    created_at: datetime = Field(default=datetime.now(timezone.utc))
