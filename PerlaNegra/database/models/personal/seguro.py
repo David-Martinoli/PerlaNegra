@@ -1,7 +1,6 @@
-# database/models/personal.py
 import reflex as rx
 from sqlmodel import Field
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
 
 

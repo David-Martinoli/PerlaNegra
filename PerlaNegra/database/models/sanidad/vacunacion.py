@@ -11,4 +11,4 @@ class Vacunacion(rx.Model, TimestampMixin, table=True):
     vacuna_id: int = Field(foreign_key="vacuna.id")
     fecha_vacunacion: datetime
     observaciones: str
-    created_at: datetime = Field(default=datetime.now)
+    created_at: datetime = Field(default=datetime.now(timezone.utc))

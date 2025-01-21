@@ -1,9 +1,7 @@
 import reflex as rx
-from sqlalchemy import Column, ForeignKey
 from sqlmodel import Field
 from datetime import date, datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
-from personal_s import PersonalS
 
 
 # //graves leves ( gravisimas  generan actuacion disiplinaria )
@@ -20,3 +18,4 @@ class Sancion(rx.Model, TimestampMixin, table=True):
     fecha_recurso: date
     dias_arresto: int
     descripcion_reglamentaria: str
+    created_at: datetime = datetime.now(timezone.utc)
