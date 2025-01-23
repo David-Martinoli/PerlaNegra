@@ -154,8 +154,8 @@ El reflex db migratecomando se utiliza para aplicar scripts de migración para a
 ###### DEBUG REFLEX
 
 NOTA: Se agrega la carpeta .vscode para mantener la configuracion personalizada del entorno de desarrollo.
-En launch.json se alcmacena la configuracion para poder depurar el proyecto reflex. No se recomienda su elimacion
-En config.json se almcancenan otras configuraciones de vscode. si se desea se puede eliminar
+En launch.json se almacena la configuracion para poder depurar el proyecto reflex. No se recomienda su eliminación
+En config.json se almacenan otras configuraciones de vscode. si se desea se puede eliminar
 
 Para agregar a su configuracion actual crear el archivo launch.json dentro de la carpeta .vscode del proyecto y adicionar el siguiente codigo.
 

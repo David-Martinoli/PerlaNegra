@@ -108,10 +108,10 @@ def menu_button() -> rx.Component:
     # The ordered page routes.
     ordered_page_routes = [
         "/",
-        "/table",
-        "/about",
-        "/profile",
-        "/settings",
+        # "/table",
+        # "/about",
+        # "/profile",
+        # "/settings",
     ]
 
     # Get the decorated pages.
@@ -142,15 +142,23 @@ def menu_button() -> rx.Component:
                         width="100%",
                     ),
                     rx.divider(),
-                    *[
-                        menu_item(
-                            text=page.get(
-                                "title", page["route"].strip("/").capitalize()
-                            ),
-                            url=page["route"],
-                        )
-                        for page in ordered_pages
-                    ],
+                    rx.box(
+                        rx.vstack(
+                            *[
+                                menu_item(
+                                    text=page.get(
+                                        "title", page["route"].strip("/").capitalize()
+                                    ),
+                                    url=page["route"],
+                                )
+                                for page in ordered_pages
+                            ],
+                            spacing="4",
+                            width="100%",
+                        ),
+                        max_height="80vh",
+                        overflow_y="auto",
+                    ),
                     rx.spacer(),
                     navbar_footer(),
                     spacing="4",

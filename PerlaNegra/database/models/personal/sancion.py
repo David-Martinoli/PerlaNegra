@@ -8,7 +8,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 class Sancion(rx.Model, TimestampMixin, table=True):
     id: int = Field(primary_key=True)
     motivo: str
-    tipo_sancion_id: int = Field(foreign_key="tiposansion.id")
+    tipo_sancion_id: int = Field(foreign_key="tiposancion.id")
     fecha: date
     personal_id: int = Field(foreign_key="personal.id")
     autoridad_id: int = Field(foreign_key="personal.id")

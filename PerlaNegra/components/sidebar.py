@@ -122,27 +122,20 @@ def sidebar_item(text: str, url: str) -> rx.Component:
 
 
 def sidebar() -> rx.Component:
-    """The sidebar.
+    """The sidebar."""
 
-    Returns:
-        The sidebar component.
-    """
-    # Get all the decorated pages and add them to the sidebar.
     from reflex.page import get_decorated_pages
 
-    # The ordered page routes.
     ordered_page_routes = [
         "/",
-        "/table",
-        "/about",
-        "/profile",
-        "/settings",
+        # "/table",
+        # "/about",
+        # "/profile",
+        # "/settings",
     ]
 
-    # Get the decorated pages.
     pages = get_decorated_pages()
 
-    # Include all pages even if they are not in the ordered_page_routes.
     ordered_pages = sorted(
         pages,
         key=lambda page: (
@@ -155,16 +148,22 @@ def sidebar() -> rx.Component:
     return rx.flex(
         rx.vstack(
             sidebar_header(),
-            rx.vstack(
-                *[
-                    sidebar_item(
-                        text=page.get("title", page["route"].strip("/").capitalize()),
-                        url=page["route"],
-                    )
-                    for page in ordered_pages
-                ],
-                spacing="1",
-                width="100%",
+            rx.box(
+                rx.vstack(
+                    *[
+                        sidebar_item(
+                            text=page.get(
+                                "title", page["route"].strip("/").capitalize()
+                            ),
+                            url=page["route"],
+                        )
+                        for page in ordered_pages
+                    ],
+                    spacing="1",
+                    width="100%",
+                ),
+                max_height="80vh",
+                overflow_y="auto",
             ),
             rx.spacer(),
             sidebar_footer(),

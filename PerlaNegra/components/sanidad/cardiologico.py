@@ -79,7 +79,7 @@ def cardiologico_form() -> rx.Component:
 
 
 @template(
-    route="/sanidad/cardiologico",
+    route="/s/cardiologico",
     title="Examen Cardiológico",
     on_load=ProtectedState.on_load,
 )

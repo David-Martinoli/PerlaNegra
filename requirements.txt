@@ -1,4 +1,4 @@
-alembic==1.14.0
+alembic==1.14.1
 annotated-types==0.7.0
 anyio==4.7.0
 bcrypt==4.2.1
@@ -48,8 +48,8 @@ python-socketio==5.12.0
 PyYAML==6.0.2
 readme_renderer==44.0
 redis==5.2.1
-reflex==0.6.7
-reflex-chakra==0.6.2
+reflex==0.6.8
+reflex-chakra==0.6.3
 reflex-hosting-cli==0.1.32
 reflex-local-auth==0.2.2
 requests==2.32.3
