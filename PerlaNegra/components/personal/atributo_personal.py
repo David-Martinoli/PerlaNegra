@@ -6,8 +6,8 @@ from PerlaNegra.database.models.personal.atributo_personal import AtributoPerson
 
 class AtributoPersonalState(rx.State):
     # Estado inicial
-    personal_id: int = 0
-    clave_id: int = 0
+    personal_id: int | None = 0
+    clave_id: int | None = 0
     valor: str = ""
 
     def handle_submit(self, form_data: dict):

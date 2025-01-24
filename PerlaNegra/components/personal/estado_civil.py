@@ -1,19 +1,59 @@
 import reflex as rx
-from datetime import datetime
-from PerlaNegra.templates import template
-from PerlaNegra.components.auth.state import ProtectedState
-from PerlaNegra.database.models.personal.estado_civil import EstadoCivil
+
+from sqlmodel import select, Date, DateTime
+from ...templates import template
+from ...components.auth.state import ProtectedState
+from ...database.models.personal.estado_civil import EstadoCivil
 
 
 class EstadoCivilState(rx.State):
-    # Estado inicial
-    nombre: str = ""
-    created_at: datetime = datetime.now()
+    estados: list[EstadoCivil] = []
 
     def handle_submit(self, form_data: dict):
         """Procesa el envío del formulario."""
         print("Datos del formulario:", form_data)
         # Aquí iría la lógica para guardar en BD
+
+    def cargar_estado_civil(self):
+        try:
+            with rx.session() as session:
+                query = select(EstadoCivil)
+                results = session.exec(query).all()
+                self.estados = [result for result in results if result is not None]
+        except Exception as e:
+            print(f"Error al cargar estados civiles: {e}")
+
+
+@rx.event
+def lista_estado_civil() -> rx.Component:
+    return rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                # rx.table.column_header_cell("ID"),
+                rx.table.column_header_cell("Nombre"),
+                # rx.table.column_header_cell("Creado"),
+                rx.table.column_header_cell("Acciones"),
+            )
+        ),
+        rx.table.body(
+            rx.foreach(
+                EstadoCivilState.estados,
+                lambda item: rx.table.row(
+                    rx.table.cell(item.nombre),
+                    rx.table.cell(
+                        rx.hstack(
+                            rx.button("Editar", bg="blue.500", color="white"),
+                            rx.button("Eliminar", bg="red.500", color="white"),
+                            spacing="2",
+                        ),
+                    ),
+                ),
+            )
+        ),
+        # rx.table.body(rx.foreach(EstadoCivilState.estados)),
+        on_mount=EstadoCivilState.cargar_estado_civil,
+        variant="surface",
+    )
 
 
 @rx.event
@@ -21,22 +61,8 @@ def estado_civil_form() -> rx.Component:
     return rx.form(
         rx.vstack(
             rx.heading("Estado Civil", size="2", mb=4),
-            rx.form(
-                rx.text("Nombre"),
-                rx.input(
-                    name="nombre", placeholder="Ingrese el nombre del estado civil"
-                ),
-                is_required=True,
-            ),
-            rx.form(
-                rx.text("Fecha de Creación"),
-                rx.input(
-                    type_="date",
-                    name="created_at",
-                    default_value=datetime.now().strftime("%Y-%m-%d"),
-                ),
-                is_required=True,
-            ),
+            rx.text("Nombre"),
+            rx.input(name="nombre", placeholder="Ingrese el nombre del estado civil"),
             rx.button(
                 "Guardar Estado Civil",
                 type_="submit",
@@ -50,6 +76,7 @@ def estado_civil_form() -> rx.Component:
             max_width="600px",
         ),
         on_submit=EstadoCivilState.handle_submit,
+        is_required=True,
     )
 
 
@@ -61,6 +88,7 @@ def estado_civil_form() -> rx.Component:
 def estado_civil_page() -> rx.Component:
     return rx.center(
         rx.vstack(
+            lista_estado_civil(),
             estado_civil_form(),
             padding="4",
             spacing="4",

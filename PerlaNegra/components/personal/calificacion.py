@@ -7,7 +7,7 @@ from PerlaNegra.database.models.personal.calificacion import Calificacion
 
 class CalificacionState(rx.State):
     # Estado inicial
-    personal_id: int = 0
+    personal_id: int | None = 0
     val1: int = 0
     val2: int = 0
     val3: int = 0

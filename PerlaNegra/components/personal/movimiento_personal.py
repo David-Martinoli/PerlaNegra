@@ -7,9 +7,9 @@ from PerlaNegra.database.models.personal.movimiento_personal import MovimientoPe
 
 class MovimientoPersonalState(rx.State):
     # Estado inicial
-    personal_id: int = 0
-    compania_id: int = 0
-    seccion_id: int = 0
+    personal_id: int | None = 0
+    compania_id: int | None = 0
+    seccion_id: int | None = 0
     fecha_inicio: datetime = datetime.now()
     fecha_fin: datetime = datetime.now()
     motivo: str = ""

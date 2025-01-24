@@ -7,7 +7,7 @@ from PerlaNegra.database.models.personal.sancion_scan import SancionScan
 
 class SancionScanState(rx.State):
     # Estado inicial
-    sancion_id: int = 0
+    sancion_id: int | None = 0
     imagen: str = ""
     descripcion: str = ""
     created_at: datetime = datetime.now()

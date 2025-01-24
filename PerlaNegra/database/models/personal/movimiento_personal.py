@@ -5,10 +5,10 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class MovimientoPersonal(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
-    personal_id: int = Field(foreign_key="personal.id")
-    compania_id: int = Field(foreign_key="compania.id")
-    seccion_id: int = Field(foreign_key="seccion.id")
+    id: int | None = Field(default=None, primary_key=True)
+    personal_id: int | None = Field(foreign_key="personal.id")
+    compania_id: int | None = Field(foreign_key="compania.id")
+    seccion_id: int | None = Field(foreign_key="seccion.id")
     fecha_inicio: datetime
     fecha_fin: datetime
     motivo: str = ""

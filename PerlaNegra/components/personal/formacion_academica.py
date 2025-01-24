@@ -10,7 +10,7 @@ class FormacionAcademicaState(rx.State):
     nombre_titulo: str = ""
     descripcion: str = ""
     fecha_egreso: date = date.today()
-    personal_id: int = 0
+    personal_id: int | None = 0
     created_at: datetime = datetime.now()
 
     def handle_submit(self, form_data: dict):

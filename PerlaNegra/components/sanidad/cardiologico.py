@@ -7,7 +7,7 @@ from PerlaNegra.components.auth.state import ProtectedState
 class CardiologicoState(rx.State):
     # Estado inicial
     ecg: str = ""
-    ergometria_id: int = 0
+    ergometria_id: int | None = 0
     radiologia: str = ""
     otros: str = ""
     fecha: date = date.today()

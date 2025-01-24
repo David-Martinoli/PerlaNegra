@@ -9,11 +9,11 @@ class FamiliarState(rx.State):
     # Estado inicial
     nombre: str = ""
     apellido: str = ""
-    personal_id: int = 0
+    personal_id: int | None = 0
     dni: str = ""
     nacionalidad: str = ""
     fecha_nacimiento: date = date.today()
-    vinculo_familiar_id: int = 0
+    vinculo_familiar_id: int | None = 0
     fecha_vinculo: date = date.today()
     created_at: datetime = datetime.now()
 

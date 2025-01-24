@@ -7,7 +7,7 @@ from PerlaNegra.database.models.sanidad.programa_salud import ProgramaSalud
 
 class ProgramaSaludState(rx.State):
     nombre: str = ""
-    tiempo_revision_id: int = 0
+    tiempo_revision_id: int | None = 0
 
     def handle_submit(self, form_data: dict):
         """Procesa el envío del formulario."""

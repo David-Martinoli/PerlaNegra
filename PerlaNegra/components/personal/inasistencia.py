@@ -8,8 +8,8 @@ from PerlaNegra.database.models.personal.inasistencia import Inasistencia
 class InasistenciaState(rx.State):
     # Estado inicial
     fecha: date = date.today()
-    personal_id: int = 0
-    inasistencia_motivo_id: int = 0
+    personal_id: int | None = 0
+    inasistencia_motivo_id: int | None = 0
     motivo: str = ""
     created_at: datetime = datetime.now()
 

@@ -5,8 +5,8 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Calificacion(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
-    personal_id: int = Field(foreign_key="personal.id")
+    id: int | None = Field(default=None, primary_key=True)
+    personal_id: int | None = Field(foreign_key="personal.id")
     val1: int = 0
     val2: int = 0
     val3: int = 0

@@ -7,8 +7,8 @@ from PerlaNegra.database.models.sanidad.profesional_paciente import ProfesionalP
 
 class ProfesionalPacienteState(rx.State):
     # Estado inicial
-    profesional_id: int = 0
-    paciente_id: int = 0
+    profesional_id: int | None = 0
+    paciente_id: int | None = 0
     ceso: bool = True
     fecha_asignacion: date = date.today()
 

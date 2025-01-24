@@ -7,13 +7,13 @@ from PerlaNegra.database.models.personal.actuacion import Actuacion
 
 class ActuacionState(rx.State):
     # Estado inicial
-    personal_id: int = 0
+    personal_id: int | None = 0
     numero_experiente: str = ""
     causa: str = ""
     fecha_inicio: date = date.today()
     fecha_fin: date = date.today()
     estado_tramite: str = ""
-    actuante_id: int = 0
+    actuante_id: int | None = 0
 
     def handle_submit(self, form_data: dict):
         """Procesa el envío del formulario."""

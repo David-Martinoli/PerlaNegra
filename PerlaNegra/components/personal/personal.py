@@ -1,26 +1,67 @@
 import reflex as rx
 from datetime import date
-from PerlaNegra.templates import template
-from PerlaNegra.components.auth.state import ProtectedState
-from PerlaNegra.database.models.personal.personal import Personal
+from sqlmodel import select
+from ...templates import template
+from ...components.auth.state import ProtectedState
+from ...database.models.personal.personal import Personal
 
 
 class PersonalState(rx.State):
     # Estado inicial
-    personalR_id: int = 0
-    personalS_id: int = 0
+    personalR_id: int | None = 0
+    personalS_id: int | None = 0
     fecha_creacion: date = date.today()
+
+    usuarios: list[Personal] = []
 
     def handle_submit(self, form_data: dict):
         """Procesa el envío del formulario."""
         print("Datos del formulario:", form_data)
-        # Aquí iría la lógica para guardar en BD
+        # Aquí iría la lógica para guardar en
+
+        self.cargar_personal()
+
+    def cargar_personal(self):
+        with rx.session() as session:
+            query = select(Personal)
+            results = session.exec(query).all()
+            self.usuarios = results
+
+
+def mostrar_personal(item: Personal) -> rx.Component:
+    """Renderiza una fila de la tabla para un registro de Personal."""
+    # if item.created_at:
+    #    fecha_str = item.created_at.strftime("%Y-%m-%d %H:%M:%S")
+    # else:
+    #    fecha_str = "N/A"
+
+    return rx.table.row(
+        rx.table.cell(str(item.personalR_id)),
+        rx.table.cell(str(item.personalS_id)),
+        rx.table.cell(str(item.created_at)),
+    )
 
 
 @rx.event
 def personal_form() -> rx.Component:
     return rx.form(
         rx.vstack(
+            rx.heading("Información Personal", size="2", mb=4),
+            rx.table.root(
+                rx.table.header(
+                    rx.table.row(
+                        rx.table.column_header_cell("ID Personal R"),
+                        rx.table.column_header_cell("ID Personal S"),
+                        rx.table.column_header_cell("Fecha de Creación"),
+                    ),
+                ),
+                rx.table.body(rx.foreach(PersonalState.usuarios, mostrar_personal)),
+                on_mount=PersonalState.cargar_personal,
+                variant="surface",
+                size="3",
+                overflow_y="auto",
+                max_height="60vh",
+            ),
             rx.heading("Información Personal", size="2", mb=4),
             rx.form(
                 rx.text("ID Personal R"),

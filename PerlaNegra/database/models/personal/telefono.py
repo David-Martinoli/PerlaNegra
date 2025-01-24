@@ -5,8 +5,8 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Telefono(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
-    personal_id: int = Field(foreign_key="personal.id")
+    id: int | None = Field(default=None, primary_key=True)
+    personal_id: int | None = Field(foreign_key="personal.id")
     numero_telefono: str
     tipo_telefono: str = ""
     created_at: datetime = datetime.now(timezone.utc)

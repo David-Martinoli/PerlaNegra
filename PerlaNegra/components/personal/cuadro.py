@@ -6,7 +6,7 @@ from PerlaNegra.database.models.personal.cuadro import Cuadro
 
 class CuadroState(rx.State):
     # Estado inicial
-    categoria_personal_id: int = 0
+    categoria_personal_id: int | None = 0
     nombre: str = ""
     iniciales: str = ""
 

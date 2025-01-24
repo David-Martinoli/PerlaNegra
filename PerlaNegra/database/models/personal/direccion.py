@@ -5,8 +5,8 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Direccion(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
-    personal_id: int = Field(foreign_key="personal.id")  # personalR
+    id: int | None = Field(default=None, primary_key=True)
+    personal_id: int | None = Field(foreign_key="personal.id")  # personalR
     calle: str
     ciudad: str = ""
     estado: str = ""

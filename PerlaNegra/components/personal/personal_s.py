@@ -13,14 +13,14 @@ class PersonalSState(rx.State):
     fecha_ingreso_unidad: date = date.today()
     fecha_ultimo_ascenso: date = date.today()
     numero_legajo: str = ""
-    categoria_personal_id: int = 0
+    categoria_personal_id: int | None = 0
     especialidad: str = ""
     grado: str = ""
     cuadro: str = ""
     en_campo: str = ""
     nou: str = ""
     funcion: str = ""
-    clase_id: int = 0
+    clase_id: int | None = 0
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
 

@@ -11,7 +11,7 @@ class PersonalRState(rx.State):
     apellido: str = ""
     fecha_nacimiento: date = date.today()
     dni: str = ""
-    estado_civil_id: int = 0
+    estado_civil_id: int | None = 0
     cantidad_hijos: int = 0
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()

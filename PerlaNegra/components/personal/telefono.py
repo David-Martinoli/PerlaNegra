@@ -7,7 +7,7 @@ from PerlaNegra.database.models.personal.telefono import Telefono
 
 class TelefonoState(rx.State):
     # Estado inicial
-    personal_id: int = 0
+    personal_id: int | None = 0
     numero_telefono: str = ""
     tipo_telefono: str = ""
     created_at: datetime = datetime.now()

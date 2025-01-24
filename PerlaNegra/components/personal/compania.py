@@ -6,7 +6,7 @@ from PerlaNegra.database.models.personal.compania import Compania
 
 class CompaniaState(rx.State):
     # Estado inicial
-    unidad_id: int = 0
+    unidad_id: int | None = 0
     nombre: str = ""
 
     def handle_submit(self, form_data: dict):

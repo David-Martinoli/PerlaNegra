@@ -8,10 +8,10 @@ from PerlaNegra.database.models.personal.sancion import Sancion
 class SancionState(rx.State):
     # Estado inicial
     motivo: str = ""
-    tipo_sancion_id: int = 0
+    tipo_sancion_id: int | None = 0
     fecha: date = date.today()
-    personal_id: int = 0
-    autoridad_id: int = 0
+    personal_id: int | None = 0
+    autoridad_id: int | None = 0
     fecha_comision: date = date.today()
     fecha_aplicacion: date = date.today()
     fecha_revision_jefe: date = date.today()

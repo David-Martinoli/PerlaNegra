@@ -26,7 +26,7 @@ class UsuarioService(rx.State):
             # LocalAuthState.AUTENTICATED_STATE = True
             # print(LocalAuthState.AUTENTICATED_STATE)
 
-    def get_user(self, user_id: int) -> Usuario | None:
+    def get_user(self, user_id: int | None) -> Usuario | None:
         with rx.session() as session:
             return session.get(Usuario, user_id)
 

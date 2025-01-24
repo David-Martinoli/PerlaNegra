@@ -11,7 +11,7 @@ class ActuacionDisciplinariaScanState(rx.State):
     # Estado inicial
     imagen: str = ""
     descripcion: str = ""
-    actuacion_disciplinaria_id: int = 0
+    actuacion_disciplinaria_id: int | None | None = 0
     fecha_creacion: datetime = datetime.now()
 
     def handle_submit(self, form_data: dict):

@@ -6,9 +6,9 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class FormacionAcademica(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     nombre_titulo: str
     descripcion: str
     fecha_egreso: date
-    personal_id: int = Field(foreign_key="personal.id")  # personalR
+    personal_id: int | None = Field(foreign_key="personal.id")  # personalR
     created_at: datetime = Field(default=datetime.now(timezone.utc))

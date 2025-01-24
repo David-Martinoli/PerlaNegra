@@ -7,7 +7,7 @@ from PerlaNegra.database.models.personal.direccion import Direccion
 
 class DireccionState(rx.State):
     # Estado inicial
-    personal_id: int = 0
+    personal_id: int | None = 0
     calle: str = ""
     ciudad: str = ""
     estado: str = ""

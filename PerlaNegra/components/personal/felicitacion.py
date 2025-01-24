@@ -14,7 +14,7 @@ class FelicitacionState(rx.State):
     imagen: str = ""
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
-    personal_id: int = 0
+    personal_id: int | None = 0
 
     def handle_submit(self, form_data: dict):
         """Procesa el envío del formulario."""

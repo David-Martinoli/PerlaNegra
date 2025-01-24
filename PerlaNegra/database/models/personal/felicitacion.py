@@ -11,7 +11,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Felicitacion(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     quien_impone: int = Field(foreign_key="personal.id")
     fecha: date
     causa: str
@@ -19,5 +19,5 @@ class Felicitacion(rx.Model, TimestampMixin, table=True):
     imagen: str
     created_at: datetime = datetime.now(timezone.utc)
     updated_at: datetime = datetime.now(timezone.utc)
-    personal_id: int = Field(foreign_key="personal.id")
-    # personal_id: int = Column(ForeignKey(Personal.id))
+    personal_id: int | None = Field(foreign_key="personal.id")
+    # personal_id: int | None = Column(ForeignKey(Personal.id))

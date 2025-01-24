@@ -6,12 +6,12 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 # //graves leves ( gravisimas  generan actuacion disiplinaria )
 class Sancion(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     motivo: str
-    tipo_sancion_id: int = Field(foreign_key="tiposancion.id")
+    tipo_sancion_id: int | None = Field(foreign_key="tiposancion.id")
     fecha: date
-    personal_id: int = Field(foreign_key="personal.id")
-    autoridad_id: int = Field(foreign_key="personal.id")
+    personal_id: int | None = Field(foreign_key="personal.id")
+    autoridad_id: int | None = Field(foreign_key="personal.id")
     fecha_comision: date
     fecha_aplicacion: date
     fecha_revision_jefe: date

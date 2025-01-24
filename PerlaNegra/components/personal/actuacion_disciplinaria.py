@@ -12,8 +12,8 @@ class ActuacionDisciplinariaState(rx.State):
     numero_experiente: str = ""
     fecha_inicio: date = date.today()
     fecha_fin: date = date.today()
-    personal_id: int = 0
-    actuante_id: int = 0
+    personal_id: int | None = 0
+    actuante_id: int | None = 0
     causa: str = ""
     observacion: str = ""
     created_at: date = date.today()

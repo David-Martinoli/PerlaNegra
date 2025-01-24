@@ -5,7 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class PersonalSeguro(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
-    personal_id: int = Field(foreign_key="personal.id")
-    seguro_id: int = Field(foreign_key="seguro.id")
+    id: int | None = Field(default=None, primary_key=True)
+    personal_id: int | None = Field(foreign_key="personal.id")
+    seguro_id: int | None = Field(foreign_key="seguro.id")
     fecha_asignacion: datetime = datetime.now(timezone.utc)

@@ -7,7 +7,7 @@ from PerlaNegra.database.models.personal.seccion import Seccion
 
 class SeccionState(rx.State):
     # Estado inicial
-    compania_id: int = 0
+    compania_id: int | None = 0
     nombre: str = ""
     created_at: datetime = datetime.now()
 

@@ -5,14 +5,14 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Familiar(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     nombre: str
     apellido: str
-    personal_id: int = Field(foreign_key="personal.id")  # personalR
+    personal_id: int | None = Field(foreign_key="personal.id")  # personalR
     dni = str
     nacionalidad = str
     fecha_nacimiento: date
-    vinculo_familiar_id: int = Field(foreign_key="vinculofamiliar.id")
+    vinculo_familiar_id: int | None = Field(foreign_key="vinculofamiliar.id")
     fecha_vinculo: date
     created_at: datetime = datetime.now(timezone.utc)
     updated_at: datetime = datetime.now(timezone.utc)

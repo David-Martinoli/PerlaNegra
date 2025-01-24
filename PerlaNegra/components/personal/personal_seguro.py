@@ -7,8 +7,8 @@ from PerlaNegra.database.models.personal.personal_seguro import PersonalSeguro
 
 class PersonalSeguroState(rx.State):
     # Estado inicial
-    personal_id: int = 0
-    seguro_id: int = 0
+    personal_id: int | None = 0
+    seguro_id: int | None = 0
     fecha_asignacion: datetime = datetime.now()
 
     def handle_submit(self, form_data: dict):
