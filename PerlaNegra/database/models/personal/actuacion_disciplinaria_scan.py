@@ -1,7 +1,8 @@
 import reflex as rx
+from datetime import datetime
+
 import uuid  # https://docs.python.org/3/library/uuid.html
-from sqlmodel import Field
-from datetime import datetime, timezone
+from sqlmodel import Field, func, func
 from ..mixins.timestamp_mixin import TimestampMixin
 
 
@@ -16,5 +17,5 @@ class ActuacionDisciplinariaScan(rx.Model, TimestampMixin, table=True):
     created_at: datetime | None = Field(
         default=None,
         nullable=True,
-        sa_column_kwargs={"default": datetime.now(timezone.utc)},
+        sa_column_kwargs={"server_default": func.now()},
     )

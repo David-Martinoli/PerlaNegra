@@ -1,5 +1,5 @@
 import reflex as rx
-from sqlmodel import Field
+from sqlmodel import Field, func
 from datetime import date
 from ..mixins.timestamp_mixin import TimestampMixin
 

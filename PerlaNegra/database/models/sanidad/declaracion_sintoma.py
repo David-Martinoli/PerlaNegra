@@ -1,6 +1,6 @@
 import reflex as rx
 from datetime import datetime, timezone
-from sqlmodel import Field
+from sqlmodel import Field, func
 from ..mixins.timestamp_mixin import TimestampMixin
 
 
@@ -11,4 +11,8 @@ class DeclaracionSintoma(rx.Model, TimestampMixin, table=True):
     respuesta: str
     gravedad: str
     observacion: str
-    created_at: datetime = datetime.now(timezone.utc)
+    created_at: datetime | None = Field(
+        default=None,
+        nullable=True,
+        sa_column_kwargs={"server_default": func.now()},
+    )

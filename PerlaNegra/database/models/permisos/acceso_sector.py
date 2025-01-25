@@ -1,7 +1,7 @@
 import reflex as rx
-from sqlmodel import Field
+from sqlmodel import Field, func
 from ..mixins.timestamp_mixin import TimestampMixin
-from sqlmodel import Field
+from sqlmodel import Field, func
 
 
 class AccesoSector(rx.Model, TimestampMixin, table=True):

@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 import reflex as rx
-from sqlmodel import Field
+from sqlmodel import Field, func
 from typing import Optional
 from ..mixins.timestamp_mixin import TimestampMixin
 
