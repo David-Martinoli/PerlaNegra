@@ -49,6 +49,7 @@ PyYAML==6.0.2
 readme_renderer==44.0
 redis==5.2.1
 reflex==0.6.8
+reflex-ag-grid==0.0.10
 reflex-chakra==0.6.3
 reflex-hosting-cli==0.1.32
 reflex-local-auth==0.2.2

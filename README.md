@@ -100,7 +100,7 @@ sudo apt install python3-venv python3-pip
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -U pip
-pip install reflex alembic reflex-local-auth reflex-chakra
+pip install reflex alembic reflex-local-auth reflex-chakra reflex-ag-grid
 
 ```
 Desde cursor si al activar el entorno virtual da error se debe ejecutar:
@@ -123,7 +123,7 @@ pip freeze > requirements.txt
 Actualización de Dependencias (si es necesario)
 ```bash
 python.exe -m pip install --upgrade pip
-pip install --upgrade reflex alembic reflex-local-auth reflex-chakra
+pip install --upgrade reflex alembic reflex-local-auth reflex-chakra reflex-ag-grid
 ```
 
 Para ejecutar la aplicación:
