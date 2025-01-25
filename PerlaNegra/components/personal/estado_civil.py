@@ -23,6 +23,17 @@ class EstadoCivilState(rx.State):
         except Exception as e:
             print(f"Error al cargar estados civiles: {e}")
 
+    def delete_estado_civil(self, estado_id: int):
+        try:
+            with rx.session() as session:
+                record = session.exec(select(EstadoCivil).where(EstadoCivil.id == estado_id)).first()
+                if record:
+                    session.delete(record)
+                    session.commit()
+            self.cargar_estado_civil()
+        except Exception as e:
+            print(f"Error al eliminar el estado civil: {e}")
+
 
 @rx.event
 def lista_estado_civil() -> rx.Component:
@@ -43,7 +54,37 @@ def lista_estado_civil() -> rx.Component:
                     rx.table.cell(
                         rx.hstack(
                             rx.button("Editar", bg="blue.500", color="white"),
-                            rx.button("Eliminar", bg="red.500", color="white"),
+                            rx.alert_dialog.root(
+                                rx.alert_dialog.trigger(
+                                    rx.button("Eliminar", bg="red.500", color="white"),
+                                ),
+                                rx.alert_dialog.content(
+                                    rx.alert_dialog.title("Eliminar Estado Civil"),
+                                    rx.alert_dialog.description(
+                                        "¿Está seguro que desea eliminar este registro? Esta acción es permanente.",
+                                        size="2",
+                                    ),
+                                    rx.flex(
+                                        rx.alert_dialog.cancel(
+                                            rx.button(
+                                                "Cancelar",
+                                                variant="soft",
+                                                color_scheme="gray",
+                                            )
+                                        ),
+                                        rx.alert_dialog.action(
+                                            rx.button(
+                                                "Eliminar",
+                                                color_scheme="red",
+                                                on_click=lambda: EstadoCivilState.delete_estado_civil(item.id),
+                                            )
+                                        ),
+                                        spacing="3",
+                                        justify="end",
+                                    ),
+                                    style={"max_width": 500},
+                                ),
+                            ),
                             spacing="2",
                         ),
                     ),
