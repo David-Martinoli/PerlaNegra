@@ -23,7 +23,7 @@ from ..components.personal.actuacion_disciplinaria_scan import (
 from ..components.personal.actuacion_disciplinaria import actuacion_disciplinaria_form
 from ..components.personal.actuacion_scan import actuacion_scan_form
 from ..components.personal.actuacion import actuacion_form
-from ..components.personal.atributo_clave import atributo_clave_form
+from ..components.personal.atributo_clave import atributo_clave_page
 from ..components.personal.atributo_personal import atributo_personal_form
 from ..components.personal.calificacion import calificacion_form
 from ..components.personal.categoria_personal import categoria_personal_form
@@ -34,7 +34,7 @@ from ..components.personal.clase import clase_form
 from ..components.personal.compania import compania_form
 from ..components.personal.cuadro import cuadro_form
 from ..components.personal.direccion import direccion_form
-from ..components.personal.estado_civil import estado_civil_form
+from ..components.personal.estado_civil import estado_civil_page
 from ..components.personal.familiar import familiar_form
 from ..components.personal.felicitacion import felicitacion_form
 from ..components.personal.formacion_academica import formacion_academica_form
