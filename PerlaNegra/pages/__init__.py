@@ -1,19 +1,22 @@
 from .index import index
 from .settings import settings
-from .sanidad_dashboard import sanidad_dashboard
+
+# from .sanidad_dashboard import sanidad_dashboard
 
 # SANIDAD
 from ..components.sanidad.cardiologico import cardiologico_page
 from ..components.sanidad.declaracion_jurada import declaracion_jurada_form
-from ..components.sanidad.ergometria import ergometria_form
+from ..components.sanidad.ergometria import ergometria_page
 from ..components.sanidad.escaneo_anexo import escaneo_anexo_form
 from ..components.sanidad.examen_medico import examen_medico_form
 from ..components.sanidad.laboratorio import laboratorio_form
 from ..components.sanidad.odontologico import odontologico_form
 from ..components.sanidad.profesional_paciente import profesional_paciente_page
 from ..components.sanidad.programa_salud import programa_salud_page
-from ..components.sanidad.prueba_hemograma import prueba_hemograma_form
+from ..components.sanidad.prueba_hemograma import prueba_hemograma_page
 from ..components.sanidad.tipo_actividad_fisica import tipo_actividad_fisica_form
+from ..components.sanidad.enfermedad import enfermedad_page
+from ..components.sanidad.sintoma import sintoma_page
 
 
 # PERSONAL
