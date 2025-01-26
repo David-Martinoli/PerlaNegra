@@ -17,6 +17,7 @@ from ..components.sanidad.prueba_hemograma import prueba_hemograma_page
 from ..components.sanidad.tipo_actividad_fisica import tipo_actividad_fisica_form
 from ..components.sanidad.enfermedad import enfermedad_page
 from ..components.sanidad.sintoma import sintoma_page
+from ..components.sanidad.tiempo_revision import tiempo_revision_page
 
 
 # PERSONAL
