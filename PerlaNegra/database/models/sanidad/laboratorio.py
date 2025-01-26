@@ -5,6 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Laboratorio(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "laboratorio"
     id: int | None = Field(default=None, primary_key=True)
     prueba_hemograma_id: int | None = Field(foreign_key="pruebahemograma.id")
     eritrosedimentacion: str = ""

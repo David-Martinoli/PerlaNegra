@@ -5,6 +5,8 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class ActuacionScan(rx.Model, TimestampMixin, table=True):
+
+    __tablename__ = "actuacionscan"
     id: int | None = Field(default=None, primary_key=True)
     actuacion_id: int | None = Field(foreign_key="actuacion.id")
     imagen: str

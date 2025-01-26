@@ -5,6 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class EscaneoAnexo(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "escaneoanexo"
     id: int | None = Field(default=None, primary_key=True)
     declaracion_jurada_id: int | None = Field(foreign_key="declaracionjurada.id")
     nombre_archivo: str

@@ -4,6 +4,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Compania(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "compania"
     id: int | None = Field(default=None, primary_key=True)
     unidad_id: int | None = Field(foreign_key="unidad.id")
     nombre: str

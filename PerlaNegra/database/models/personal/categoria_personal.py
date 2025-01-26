@@ -4,5 +4,6 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class CategoriaPersonal(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "categoriapersonal"
     id: int | None = Field(default=None, primary_key=True)
     nombre: str

@@ -5,6 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Inasistencia(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "inasistencia"
     id: int | None = Field(default=None, primary_key=True)
     fecha = date
     personal_id: int | None = Field(foreign_key="personal.id")  # personalS

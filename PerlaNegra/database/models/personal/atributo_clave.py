@@ -9,5 +9,6 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 # /* Nombre del atributo que se le agrega al personal */
 class AtributoClave(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "atributoclave"
     id: int | None = Field(default=None, primary_key=True)
     clave: str

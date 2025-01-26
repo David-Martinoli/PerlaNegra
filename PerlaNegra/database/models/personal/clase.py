@@ -6,6 +6,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 # //civil o militar
 class Clase(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "clase"
     id: int | None = Field(default=None, primary_key=True)
     nombre: str
     created_at: datetime | None = Field(

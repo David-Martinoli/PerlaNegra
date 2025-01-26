@@ -5,6 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class DeclaracionJurada(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "declaracionjurada"
     id: int | None = Field(default=None, primary_key=True)
     personal_id: int | None = Field(foreign_key="personal.id")
     fatiga_facil: bool = False

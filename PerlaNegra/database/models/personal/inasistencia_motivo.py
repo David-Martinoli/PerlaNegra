@@ -5,6 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class InasistenciaMotivo(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "inasistenciamotivo"
     id: int | None = Field(default=None, primary_key=True)
     nombre: str
     descripcion: str

@@ -5,6 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Vacunacion(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "vacunacion"
     id: int | None = Field(default=None, primary_key=True)
     profesional_id: int | None = Field(foreign_key="personal.id")
     personal_id: int | None = Field(foreign_key="personal.id")

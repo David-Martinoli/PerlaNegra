@@ -5,6 +5,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class PersonalSeguro(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "personalseguro"
     id: int | None = Field(default=None, primary_key=True)
     personal_id: int | None = Field(foreign_key="personal.id")
     seguro_id: int | None = Field(foreign_key="seguro.id")

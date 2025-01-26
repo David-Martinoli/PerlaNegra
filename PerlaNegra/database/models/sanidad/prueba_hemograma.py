@@ -4,6 +4,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class PruebaHemograma(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "pruebahemograma"
     id: int | None = Field(default=None, primary_key=True)
     globulos_rojos: int
     hematocritos: int

@@ -6,6 +6,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 # //graves leves ( gravisimas  generan actuacion disiplinaria )
 class Sancion(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "sancion"
     id: int | None = Field(default=None, primary_key=True)
     motivo: str
     tipo_sancion_id: int | None = Field(foreign_key="tiposancion.id")

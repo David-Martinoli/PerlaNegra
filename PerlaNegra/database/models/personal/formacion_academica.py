@@ -6,6 +6,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class FormacionAcademica(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "formacionacademica"
     id: int | None = Field(default=None, primary_key=True)
     nombre_titulo: str
     descripcion: str

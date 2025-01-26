@@ -11,6 +11,7 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 
 class Felicitacion(rx.Model, TimestampMixin, table=True):
+    __tablename__ = "felicitacion"
     id: int | None = Field(default=None, primary_key=True)
     quien_impone: int = Field(foreign_key="personal.id")
     fecha: date
