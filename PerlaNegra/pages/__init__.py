@@ -14,10 +14,11 @@ from ..components.sanidad.odontologico import odontologico_form
 from ..components.sanidad.profesional_paciente import profesional_paciente_page
 from ..components.sanidad.programa_salud import programa_salud_page
 from ..components.sanidad.prueba_hemograma import prueba_hemograma_page
-from ..components.sanidad.tipo_actividad_fisica import tipo_actividad_fisica_form
+from ..components.sanidad.tipo_actividad_fisica import tipo_actividad_fisica_page
 from ..components.sanidad.enfermedad import enfermedad_page
 from ..components.sanidad.sintoma import sintoma_page
 from ..components.sanidad.tiempo_revision import tiempo_revision_page
+from ..components.sanidad.vacuna import vacuna_page
 
 
 # PERSONAL
