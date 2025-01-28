@@ -93,6 +93,23 @@ para organizar tu estado.
 
 Puedes definir subestados en sus propios archivos, o si el estado es específico de una página, puedes definirlo en el archivo de la página misma.
 
+### Nomenclatura relaciones de modelos
+
+se implemento un sistema de nomenclatura para los nombres de relaciones que consiste en:
+```Python
+[Nombre_tabla_actual] + [Nombre_tabla_a_vincular] + *[nombre_campo] + "relation"
+```
+Ejemplo:
+```
+class Equipo(...):
+    equipo_heroe_relation: ...
+
+class Heroe(...):
+    heroe_equipo_relation
+```
+
+* En caso de realizar dos vinculos a misma tabla, agregar nombre de campo
+
 #### SistIntegPerlaNegra Ejecutando Reflex en Linux
 
 ```bash

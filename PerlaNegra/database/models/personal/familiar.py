@@ -1,7 +1,12 @@
 import reflex as rx
-from sqlmodel import Field, func
-from datetime import date, datetime, timezone
+from sqlmodel import Field, func, Relationship
+from datetime import date, datetime
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .vinculo_familiar import VinculoFamiliar
+    from .personal import Personal
 
 
 class Familiar(rx.Model, TimestampMixin, table=True):
@@ -24,4 +29,14 @@ class Familiar(rx.Model, TimestampMixin, table=True):
         default_factory=datetime.now,
         nullable=False,
         sa_column_kwargs={"onupdate": func.now()},
+    )
+
+    # Relaciones
+    familiar_personal_relation: "Personal" = Relationship(
+        back_populates="personal_familiar_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    familiar_vinculo_familiar_relation: "VinculoFamiliar" = Relationship(
+        back_populates="vinculo_familiar_familiar_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )

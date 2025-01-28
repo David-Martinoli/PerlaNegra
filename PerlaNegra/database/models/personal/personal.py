@@ -1,7 +1,7 @@
 import reflex as rx
 from sqlmodel import Field, Relationship
-from typing import TYPE_CHECKING
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .actuacion_disciplinaria import ActuacionDisciplinaria
@@ -11,6 +11,10 @@ if TYPE_CHECKING:
     from .atributo_personal import AtributoPersonal
     from .calificacion import Calificacion
     from .direccion import Direccion
+    from .familiar import Familiar
+    from .felicitacion import Felicitacion
+    from .formacion_academica import FormacionAcademica
+    from .inasistencia import Inasistencia
 
 
 class Personal(rx.Model, TimestampMixin, table=True):
@@ -68,6 +72,31 @@ class Personal(rx.Model, TimestampMixin, table=True):
     )
     direccion_personal_relation: list["Direccion"] = Relationship(
         back_populates="personal_direccion_relation"
+    )
+    personal_familiar_relation: list["Familiar"] = Relationship(
+        back_populates="familiar_personal_relation"
+    )
+    felicitacion_personal_quien_impone_relation: list["Felicitacion"] = Relationship(
+        back_populates="personal_quien_impone_felicitacion_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "Felicitacion.quien_impone",
+            "lazy": "joined",
+        },
+    )
+    personal_felicitacion_personal_relation: list["Felicitacion"] = Relationship(
+        back_populates="personal_personal_felicitacion_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "Felicitacion.personal_id",
+            "lazy": "joined",
+        },
+    )
+    personal_formacion_academica_relation: list["FormacionAcademica"] = Relationship(
+        back_populates="formacion_academica_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    personal_inasistencia_relation: list["Inasistencia"] = Relationship(
+        back_populates="inasistencia_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
 
     # @property
