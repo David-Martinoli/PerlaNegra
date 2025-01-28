@@ -10,7 +10,7 @@ class PersonalState(rx.State):
     # Estado inicial
     personalR_id: int | None = 0
     personalS_id: int | None = 0
-    fecha_creacion: date = date.today()
+    # fecha_creacion: date = date.today()
 
     usuarios: list[Personal] = []
 
@@ -38,7 +38,7 @@ def mostrar_personal(item: Personal) -> rx.Component:
     return rx.table.row(
         rx.table.cell(str(item.personalR_id)),
         rx.table.cell(str(item.personalS_id)),
-        rx.table.cell(str(item.created_at)),
+        # rx.table.cell(str(item.created_at)),
     )
 
 

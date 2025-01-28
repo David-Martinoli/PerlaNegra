@@ -1,10 +1,21 @@
-# database/models/personal.py
 import reflex as rx
-from typing import Optional, List
-from sqlmodel import Field, func, Relationship, SQLModel, Column, String, Index
+from typing import Optional, List, TYPE_CHECKING
+from sqlmodel import (
+    Field,
+    func,
+    Relationship,
+    SQLModel,
+    Column,
+    String,
+    Index,
+)
 from datetime import date, datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
-from .estado_civil import EstadoCivil
+
+if TYPE_CHECKING:
+    # Importaciones condicionales para evitar circulares
+    from .personal import Personal
+    from .estado_civil import EstadoCivil
 
 
 class PersonalR(rx.Model, TimestampMixin, table=True):
@@ -12,16 +23,15 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
 
     __tablename__ = "personalr"  # Mantener el nombre
 
-    id: Optional[int] = Field(default=None, primary_key=True)
-    nombre: str = Field(..., max_length=100)
-    apellido: str = Field(..., max_length=100)
+    id: int | None = Field(default=None, primary_key=True)
+    nombre: str = Field(max_length=100)
+    apellido: str = Field(max_length=100)
     fecha_nacimiento: date
-    dni: str = Field(..., max_length=20, unique=True)
-    estado_civil_id: int = Field(
+    dni: str = Field(max_length=20, unique=True)
+    estado_civil_id: int | None = Field(
         foreign_key="estadocivil.id", nullable=False, ondelete="RESTRICT"
     )
     cantidad_hijos: int = Field(default=0, ge=0)
-
     # Timestamps heredados de TimestampMixin
     created_at: Optional[datetime] = Field(
         default_factory=datetime.now,
@@ -35,22 +45,26 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
     )
 
     # Relaciones
-    estado_civil: EstadoCivil = Relationship(
+    personalr_personal_relation: List["Personal"] = Relationship(
+        back_populates="personal_personalr_relation"  # , sa_relationship_kwargs={"lazy": "joined"}
+    )
+
+    estado_civil: "EstadoCivil" = Relationship(
         back_populates="personal_r",
-        sa_relationship_kwargs={"lazy": "joined"},
+        # sa_relationship_kwargs={"lazy": "joined"},
     )
 
     # Índices
-    __table_args__ = (
-        Index("idx_dni_personalr", "dni", unique=True),
-        Index("idx_nombre_apellido_personalr", "nombre", "apellido"),
-    )
+    # __table_args__ = (
+    #    Index("idx_dni_personalr", "dni", unique=True),
+    #    Index("idx_nombre_apellido_personalr", "nombre", "apellido"),
+    # )
 
     # Propiedades calculadas
     @property
     def nombre_completo(self) -> str:
         """Retorna el nombre completo del empleado."""
-        return f"{self.nombre} {self.apellido}"
+        return f"{self.nombre.strip()} {self.apellido.strip()}".title()
 
     @property
     def edad(self) -> int:

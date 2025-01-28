@@ -20,7 +20,7 @@ class EstadoCivil(rx.Model, TimestampMixin, table=True):
 
     __tablename__ = "estadocivil"
 
-    id: int = Field(primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     nombre: str = Field(min_length=2, max_length=50, unique=True, index=True)
     created_at: datetime | None = Field(
         default=None, nullable=True, sa_column_kwargs={"server_default": func.now()}
