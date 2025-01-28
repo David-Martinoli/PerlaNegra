@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from .felicitacion import Felicitacion
     from .formacion_academica import FormacionAcademica
     from .inasistencia import Inasistencia
+    from .movimiento_personal import MovimientoPersonal
 
 
 class Personal(rx.Model, TimestampMixin, table=True):
@@ -97,6 +98,9 @@ class Personal(rx.Model, TimestampMixin, table=True):
     personal_inasistencia_relation: list["Inasistencia"] = Relationship(
         back_populates="inasistencia_personal_relation",
         sa_relationship_kwargs={"lazy": "joined"},
+    )
+    personal_movimiento_personal_relation: list["MovimientoPersonal"] = Relationship(
+        back_populates="movimiento_personal_personal_relation"
     )
 
     # @property

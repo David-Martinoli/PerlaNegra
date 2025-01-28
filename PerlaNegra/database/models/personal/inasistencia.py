@@ -13,7 +13,7 @@ class Inasistencia(rx.Model, TimestampMixin, table=True):
     __tablename__ = "inasistencia"
     id: int | None = Field(default=None, primary_key=True)
     fecha = date
-    personal_id: int | None = Field(foreign_key="personal.id")  # personalS
+    personal_id: int | None = Field(foreign_key="personal.id") 
     inasistencia_motivo_id: int | None = Field(foreign_key="inasistenciamotivo.id")
     motivo = str
     created_at: datetime | None = Field(

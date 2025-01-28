@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .unidad import Unidad
+    from .movimiento_personal import MovimientoPersonal
 
 
 class Compania(rx.Model, TimestampMixin, table=True):
@@ -16,4 +17,7 @@ class Compania(rx.Model, TimestampMixin, table=True):
     # Relaciones
     compania_unidad_relation: "Unidad" = Relationship(
         back_populates="unidad_compania_relation"
+    )
+    compania_movimiento_personal_relation: list["MovimientoPersonal"] = Relationship(
+        back_populates="movimiento_personal_compania_relation"
     )

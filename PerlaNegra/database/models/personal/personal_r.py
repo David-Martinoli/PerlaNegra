@@ -46,12 +46,13 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
 
     # Relaciones
     personalr_personal_relation: list["Personal"] = Relationship(
-        back_populates="personal_personalr_relation"  # , sa_relationship_kwargs={"lazy": "joined"}
+        back_populates="personal_personalr_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
 
     estado_civil: "EstadoCivil" = Relationship(
         back_populates="personal_r",
-        # sa_relationship_kwargs={"lazy": "joined"},
+        sa_relationship_kwargs={"lazy": "joined"},
     )
 
     # Índices

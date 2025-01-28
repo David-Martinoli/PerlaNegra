@@ -1,7 +1,12 @@
 import reflex as rx
-from sqlmodel import Field, func
-from datetime import date, datetime, timezone
+from sqlmodel import Field, func, Relationship
+from datetime import date, datetime
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .personal import Personal
+    from .tipo_sancion import TipoSancion
 
 
 # //graves leves ( gravisimas  generan actuacion disiplinaria )
@@ -9,7 +14,7 @@ class Sancion(rx.Model, TimestampMixin, table=True):
     __tablename__ = "sancion"
     id: int | None = Field(default=None, primary_key=True)
     motivo: str
-    tipo_sancion_id: int | None = Field(foreign_key="tiposancion.id")
+    tipo_sansion_id: int | None = Field(foreign_key="tiposancion.id")
     fecha: date
     personal_id: int | None = Field(foreign_key="personal.id")
     autoridad_id: int | None = Field(foreign_key="personal.id")
