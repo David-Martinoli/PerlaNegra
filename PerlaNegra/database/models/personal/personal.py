@@ -16,6 +16,8 @@ if TYPE_CHECKING:
     from .formacion_academica import FormacionAcademica
     from .inasistencia import Inasistencia
     from .movimiento_personal import MovimientoPersonal
+    from .personal_seguro import PersonalSeguro
+    from .sancion import Sancion
 
 
 class Personal(rx.Model, TimestampMixin, table=True):
@@ -100,7 +102,26 @@ class Personal(rx.Model, TimestampMixin, table=True):
         sa_relationship_kwargs={"lazy": "joined"},
     )
     personal_movimiento_personal_relation: list["MovimientoPersonal"] = Relationship(
-        back_populates="movimiento_personal_personal_relation"
+        back_populates="movimiento_personal_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    personal_personal_seguro_relation: list["PersonalSeguro"] = Relationship(
+        back_populates="personal_seguro_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    personal_sancion_personal_relation: list["Sancion"] = Relationship(
+        back_populates="sancion_personal_personal_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "Sancion.personal_id",
+            "lazy": "joined",
+        },
+    )
+    personal_autoridad_sancion_relation: list["Sancion"] = Relationship(
+        back_populates="sancion_personal_autoridad_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "Sancion.autoridad_id",
+            "lazy": "joined",
+        },
     )
 
     # @property

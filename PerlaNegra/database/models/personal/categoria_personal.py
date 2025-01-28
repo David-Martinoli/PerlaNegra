@@ -4,7 +4,8 @@ from ..mixins.timestamp_mixin import TimestampMixin
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from cuadro import Cuadro
+    from .cuadro import Cuadro
+    from .personal_s import PersonalS
 
 
 class CategoriaPersonal(rx.Model, TimestampMixin, table=True):
@@ -15,5 +16,9 @@ class CategoriaPersonal(rx.Model, TimestampMixin, table=True):
     # Relaciones
     categoria_personal_cuadro_relation: list["Cuadro"] = Relationship(
         back_populates="cuadro_categoria_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    categoria_personal_personals_relation: list["PersonalS"] = Relationship(
+        back_populates="personals_categoria_personal_relation",
         sa_relationship_kwargs={"lazy": "joined"},
     )

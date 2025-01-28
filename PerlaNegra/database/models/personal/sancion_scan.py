@@ -1,7 +1,11 @@
 import reflex as rx
-from sqlmodel import Field, func
-from datetime import datetime, timezone
+from sqlmodel import Field, func, Relationship
+from datetime import datetime
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .sancion import Sancion
 
 
 class SancionScan(rx.Model, TimestampMixin, table=True):
@@ -14,4 +18,10 @@ class SancionScan(rx.Model, TimestampMixin, table=True):
         default=None,
         nullable=True,
         sa_column_kwargs={"server_default": func.now()},
+    )
+
+    # Relaciones
+    sancion_scan_sancion_relation: "Sancion" = Relationship(
+        back_populates="sancion_sancion_scan_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )

@@ -4,13 +4,11 @@ from datetime import date, datetime
 from ..mixins.timestamp_mixin import TimestampMixin
 from typing import TYPE_CHECKING
 
-# Agregado
-from typing import Optional
-
-
 if TYPE_CHECKING:
     # Importaciones condicionales para evitar circulares
     from .personal import Personal
+    from .clase import Clase
+    from .categoria_personal import CategoriaPersonal
 
 
 class PersonalS(rx.Model, TimestampMixin, table=True):
@@ -22,7 +20,10 @@ class PersonalS(rx.Model, TimestampMixin, table=True):
     fecha_ingreso_unidad: date
     fecha_ultimo_ascenso: date
     numero_legajo: str
+
     categoria_personal_id: int | None = Field(foreign_key="categoriapersonal.id")
+    clase_id: int | None = Field(foreign_key="clase.id")  # civil o militar
+
     especialidad: str = ""
     grado: str = ""  #
     cuadro: str = ""  # E
@@ -39,11 +40,19 @@ class PersonalS(rx.Model, TimestampMixin, table=True):
         nullable=False,
         sa_column_kwargs={"onupdate": func.now()},
     )
-    clase_id: int | None = Field(foreign_key="clase.id")  # civil o militar
 
     # Relaciones
     personals_personal_relation: list["Personal"] = Relationship(
         back_populates="personal_personals_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    personals_clase_relation: "Clase" = Relationship(
+        back_populates="clase_personals_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    personals_categoria_personal_relation: "CategoriaPersonal" = Relationship(
+        back_populates="categoria_personal_personals_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
 
     @property
