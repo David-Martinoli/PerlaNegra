@@ -1,6 +1,6 @@
 import reflex as rx
-from sqlmodel import Field, func, Relationship
-from typing import TYPE_CHECKING, List
+from sqlmodel import Field, Relationship
+from typing import TYPE_CHECKING
 from ..mixins.timestamp_mixin import TimestampMixin
 
 if TYPE_CHECKING:
@@ -40,11 +40,11 @@ class Personal(rx.Model, TimestampMixin, table=True):
         back_populates="personalr_personal_relation",
         sa_relationship_kwargs={"lazy": "joined"},
     )
-    personal_actuacion_p_relation: List["ActuacionDisciplinaria"] = Relationship(
+    personal_actuacion_p_relation: list["ActuacionDisciplinaria"] = Relationship(
         back_populates="actuacion_p_personal_relation",
         sa_relationship_kwargs={"foreign_keys": "ActuacionDisciplinaria.personal_id"},
     )
-    personal_actuacion_a_relation: List["ActuacionDisciplinaria"] = Relationship(
+    personal_actuacion_a_relation: list["ActuacionDisciplinaria"] = Relationship(
         back_populates="actuacion_a_personal_relation",
         sa_relationship_kwargs={"foreign_keys": "ActuacionDisciplinaria.actuante_id"},
     )

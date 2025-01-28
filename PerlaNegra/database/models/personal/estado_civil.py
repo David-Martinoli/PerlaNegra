@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING
 import reflex as rx
 from sqlmodel import Field, func, Relationship
 from datetime import datetime
@@ -27,7 +27,7 @@ class EstadoCivil(rx.Model, TimestampMixin, table=True):
     )
 
     # Relaciones
-    personal_r: List["PersonalR"] = Relationship(
+    personal_r: list["PersonalR"] = Relationship(
         back_populates="estado_civil",
         sa_relationship_kwargs={"cascade": "all, delete-orphan"},
     )

@@ -1,7 +1,12 @@
 import reflex as rx
-from sqlmodel import Field, func
+from sqlmodel import Field, func, Relationship
 from datetime import date, datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .actuacion_scan import ActuacionScan
 
 
 class Actuacion(rx.Model, TimestampMixin, table=True):
@@ -23,4 +28,9 @@ class Actuacion(rx.Model, TimestampMixin, table=True):
         default_factory=datetime.now,
         nullable=False,
         sa_column_kwargs={"onupdate": func.now()},
+    )
+
+    # Relaciones
+    actuacion_actuacion_scan_relation: list["ActuacionScan"] = Relationship(
+        back_populates="actuacion_scan_actuacion_relation"
     )

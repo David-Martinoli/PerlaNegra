@@ -1,8 +1,8 @@
 import reflex as rx
 from sqlmodel import Field, func, Relationship
-from datetime import date, datetime, timezone
+from datetime import date, datetime
 from ..mixins.timestamp_mixin import TimestampMixin
-from typing import List, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 # Agregado
 from typing import Optional
@@ -42,7 +42,7 @@ class PersonalS(rx.Model, TimestampMixin, table=True):
     clase_id: int | None = Field(foreign_key="clase.id")  # civil o militar
 
     # Relaciones
-    personals_personal_relation: List["Personal"] = Relationship(
+    personals_personal_relation: list["Personal"] = Relationship(
         back_populates="personal_personals_relation",
     )
 

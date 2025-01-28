@@ -1,5 +1,5 @@
 import reflex as rx
-from typing import List, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from sqlmodel import (
     Field,
     func,
@@ -9,7 +9,7 @@ from sqlmodel import (
     String,
     Index,
 )
-from datetime import date, datetime, timezone
+from datetime import date, datetime
 from ..mixins.timestamp_mixin import TimestampMixin
 
 if TYPE_CHECKING:
@@ -45,7 +45,7 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
     )
 
     # Relaciones
-    personalr_personal_relation: List["Personal"] = Relationship(
+    personalr_personal_relation: list["Personal"] = Relationship(
         back_populates="personal_personalr_relation"  # , sa_relationship_kwargs={"lazy": "joined"}
     )
 
