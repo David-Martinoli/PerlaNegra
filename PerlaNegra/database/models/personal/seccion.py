@@ -17,5 +17,10 @@ class Seccion(rx.Model, TimestampMixin, table=True):
 
     # Relaciones
     seccion_movimiento_personal_relation: list["MovimientoPersonal"] = Relationship(
-        back_populates="movimiento_personal_seccion_relation"
+        back_populates="movimiento_personal_seccion_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    seccion_compania_relation: "Compania" = Relationship(
+        back_populates="compania_seccion_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )

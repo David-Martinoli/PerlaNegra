@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .unidad import Unidad
     from .movimiento_personal import MovimientoPersonal
+    from .seccion import Seccion
 
 
 class Compania(rx.Model, TimestampMixin, table=True):
@@ -16,8 +17,14 @@ class Compania(rx.Model, TimestampMixin, table=True):
 
     # Relaciones
     compania_unidad_relation: "Unidad" = Relationship(
-        back_populates="unidad_compania_relation"
+        back_populates="unidad_compania_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     compania_movimiento_personal_relation: list["MovimientoPersonal"] = Relationship(
-        back_populates="movimiento_personal_compania_relation"
+        back_populates="movimiento_personal_compania_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
+    compania_seccion_relation: list["Seccion"] = Relationship(
+        back_populates="seccion_compania_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )

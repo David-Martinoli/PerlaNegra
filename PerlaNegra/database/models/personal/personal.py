@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from .movimiento_personal import MovimientoPersonal
     from .personal_seguro import PersonalSeguro
     from .sancion import Sancion
+    from .telefono import Telefono
 
 
 class Personal(rx.Model, TimestampMixin, table=True):
@@ -122,6 +123,9 @@ class Personal(rx.Model, TimestampMixin, table=True):
             "foreign_keys": "Sancion.autoridad_id",
             "lazy": "joined",
         },
+    )
+    personal_telefono_relation: list["Telefono"] = Relationship(
+        back_populates="telefono_personal_relation"
     )
 
     # @property

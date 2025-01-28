@@ -1,7 +1,11 @@
 import reflex as rx
-from sqlmodel import Field, func
-from datetime import datetime, timezone
+from sqlmodel import Field, func, Relationship
+from datetime import datetime
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .personal import Personal
 
 
 class Telefono(rx.Model, TimestampMixin, table=True):
@@ -19,4 +23,9 @@ class Telefono(rx.Model, TimestampMixin, table=True):
         default_factory=datetime.now,
         nullable=False,
         sa_column_kwargs={"onupdate": func.now()},
+    )
+
+    # Relaciones
+    telefono_personal_relation: "Personal" = Relationship(
+        back_populates="personal_telefono_relation"
     )
