@@ -1,5 +1,5 @@
 import reflex as rx
-from typing import Optional, List, TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 from sqlmodel import (
     Field,
     func,
@@ -33,12 +33,12 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
     )
     cantidad_hijos: int = Field(default=0, ge=0)
     # Timestamps heredados de TimestampMixin
-    created_at: Optional[datetime] = Field(
+    created_at: datetime = Field(
         default_factory=datetime.now,
         nullable=False,
         sa_column_kwargs={"server_default": func.now()},
     )
-    updated_at: datetime = Field(
+    updated_at: datetime | None = Field(
         default_factory=datetime.now,
         nullable=False,
         sa_column_kwargs={"onupdate": func.now()},
@@ -55,10 +55,10 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
     )
 
     # Índices
-    # __table_args__ = (
-    #    Index("idx_dni_personalr", "dni", unique=True),
-    #    Index("idx_nombre_apellido_personalr", "nombre", "apellido"),
-    # )
+    __table_args__ = (
+        Index("idx_dni_personalr", "dni", unique=True),
+        Index("idx_nombre_apellido_personalr", "nombre", "apellido"),
+    )
 
     # Propiedades calculadas
     @property

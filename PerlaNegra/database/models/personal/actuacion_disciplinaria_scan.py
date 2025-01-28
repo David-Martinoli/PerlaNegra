@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from .actuacion_disciplinaria import ActuacionDisciplinaria
 
 
-class ActuacionDisciplinariaScan(rx.Model, TimestampMixin, table=True):
+class ActuacionDisciplinariaScan(TimestampMixin, rx.Model, table=True):
     """Modelo para almacenar documentos escaneados de actuaciones disciplinarias.
 
     Attributes:
@@ -23,16 +23,16 @@ class ActuacionDisciplinariaScan(rx.Model, TimestampMixin, table=True):
 
     __tablename__ = "actuaciondisciplinariascan"
     id: int | None = Field(default=None, primary_key=True)
-    imagen: str
-    descripcion: str
+    imagen: str | None = None
+    descripcion: str | None = None
     actuacion_disciplinaria_id: int | None = Field(
         foreign_key="actuaciondisciplinaria.id", index=True, nullable=False
     )
-    created_at: datetime | None = Field(
-        default=None,
-        nullable=True,
-        sa_column_kwargs={"server_default": func.now()},
-    )
+    # created_at: datetime | None = Field(
+    #    default=None,
+    #    nullable=True,
+    #    sa_column_kwargs={"server_default": func.now()},
+    # )
 
     # Relaciones
     actuacion: "ActuacionDisciplinaria" = Relationship(back_populates="scans")

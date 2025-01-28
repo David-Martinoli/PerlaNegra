@@ -23,6 +23,10 @@ class Felicitacion(rx.Model, TimestampMixin, table=True):
         nullable=True,
         sa_column_kwargs={"server_default": func.now()},
     )
-    updated_at: datetime = datetime.now(timezone.utc)
+    updated_at: datetime | None = Field(
+        default_factory=datetime.now,
+        nullable=False,
+        sa_column_kwargs={"onupdate": func.now()},
+    )
     personal_id: int | None = Field(foreign_key="personal.id")
     # personal_id: int | None = Column(ForeignKey(Personal.id))

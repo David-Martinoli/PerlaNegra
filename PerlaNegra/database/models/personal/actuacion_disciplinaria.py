@@ -29,7 +29,7 @@ class ActuacionDisciplinaria(rx.Model, TimestampMixin, table=True):
     fecha_fin: date | None = None
     personal_id: int = Field(foreign_key="personal.id")
     actuante_id: int = Field(foreign_key="personal.id")
-    causa: str
+    causa: str | None = None
     observacion: str | None = None
     created_at: datetime | None = Field(
         default=None,

@@ -1,6 +1,6 @@
 import reflex as rx
 from sqlmodel import Field, func, Relationship
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, List
 from ..mixins.timestamp_mixin import TimestampMixin
 
 if TYPE_CHECKING:

@@ -15,8 +15,7 @@ if TYPE_CHECKING:
 
 class PersonalS(rx.Model, TimestampMixin, table=True):
     __tablename__ = "personals"
-    # id: int | None = Field(default=None, primary_key=True)
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     nombre: str
     apellido: str
     fecha_ingreso: date
@@ -35,7 +34,11 @@ class PersonalS(rx.Model, TimestampMixin, table=True):
         nullable=True,
         sa_column_kwargs={"server_default": func.now()},
     )
-    updated_at: datetime = datetime.now(timezone.utc)
+    updated_at: datetime | None = Field(
+        default_factory=datetime.now,
+        nullable=False,
+        sa_column_kwargs={"onupdate": func.now()},
+    )
     clase_id: int | None = Field(foreign_key="clase.id")  # civil o militar
 
     # Relaciones

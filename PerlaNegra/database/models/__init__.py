@@ -1,3 +1,6 @@
+# Mixins
+# from .mixins.timestamp_mixin import TimestampMixin
+
 # Sanidad
 from .sanidad.profesional_paciente import ProfesionalPaciente
 from .sanidad.programa_salud import ProgramaSalud
@@ -22,9 +25,6 @@ from .sanidad.vacunacion import Vacunacion
 # Auditoria
 from .auditoria.auditoria_rol import AuditoriaRol
 from .auditoria.auditoria import Auditoria
-
-# Mixins
-from .mixins.timestamp_mixin import TimestampMixin
 
 # Permisos
 from .permisos.acceso_sector import AccesoSector
