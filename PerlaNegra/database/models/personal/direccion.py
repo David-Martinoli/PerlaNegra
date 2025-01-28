@@ -1,7 +1,11 @@
 import reflex as rx
-from sqlmodel import Field, func
+from sqlmodel import Field, func, Relationship
 from datetime import datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .personal import Personal
 
 
 class Direccion(rx.Model, TimestampMixin, table=True):
@@ -20,3 +24,8 @@ class Direccion(rx.Model, TimestampMixin, table=True):
         sa_column_kwargs={"server_default": func.now()},
     )
     updated_at: datetime | None = datetime.now(timezone.utc)
+
+    # Relaciones
+    personal_direccion_relation: "Personal" = Relationship(
+        back_populates="direccion_personal_relation",
+    )

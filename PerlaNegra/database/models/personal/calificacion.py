@@ -1,7 +1,11 @@
 import reflex as rx
-from sqlmodel import Field, func
+from sqlmodel import Field, func, Relationship
 from datetime import datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .personal import Personal
 
 
 class Calificacion(rx.Model, TimestampMixin, table=True):
@@ -18,4 +22,9 @@ class Calificacion(rx.Model, TimestampMixin, table=True):
         default=None,
         nullable=True,
         sa_column_kwargs={"server_default": func.now()},
+    )
+
+    # Relaciones
+    calificacion_personal_relation: "Personal" = Relationship(
+        back_populates="personal_calificacion_relation"
     )

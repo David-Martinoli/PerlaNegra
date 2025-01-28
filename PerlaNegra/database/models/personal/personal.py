@@ -7,6 +7,10 @@ if TYPE_CHECKING:
     from .actuacion_disciplinaria import ActuacionDisciplinaria
     from .personal_r import PersonalR
     from .personal_s import PersonalS
+    from .actuacion import Actuacion
+    from .atributo_personal import AtributoPersonal
+    from .calificacion import Calificacion
+    from .direccion import Direccion
 
 
 class Personal(rx.Model, TimestampMixin, table=True):
@@ -47,6 +51,23 @@ class Personal(rx.Model, TimestampMixin, table=True):
     personal_actuacion_a_relation: list["ActuacionDisciplinaria"] = Relationship(
         back_populates="actuacion_a_personal_relation",
         sa_relationship_kwargs={"foreign_keys": "ActuacionDisciplinaria.actuante_id"},
+    )
+    personal_actuacion_personal_relation: list["Actuacion"] = Relationship(
+        back_populates="actuacion_personal_personal_relation",
+        sa_relationship_kwargs={"foreign_keys": "Actuacion.personal_id"},
+    )
+    personal_actuacion_actuante_relation: list["Actuacion"] = Relationship(
+        back_populates="actuacion_actuante_personal_relation",
+        sa_relationship_kwargs={"foreign_keys": "Actuacion.actuante_id"},
+    )
+    personal_atributo_personal_relation: list["AtributoPersonal"] = Relationship(
+        back_populates="atributo_personal_personal_relation"
+    )
+    personal_calificacion_relation: list["Calificacion"] = Relationship(
+        back_populates="calificacion_personal_relation"
+    )
+    direccion_personal_relation: list["Direccion"] = Relationship(
+        back_populates="personal_direccion_relation"
     )
 
     # @property
