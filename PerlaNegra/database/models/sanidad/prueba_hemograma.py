@@ -1,4 +1,5 @@
 from datetime import date
+from enum import Enum
 import reflex as rx
 from sqlmodel import Field, func, Relationship
 from ..mixins.timestamp_mixin import TimestampMixin

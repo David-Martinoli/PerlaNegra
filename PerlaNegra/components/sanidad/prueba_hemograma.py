@@ -264,8 +264,8 @@ def editar_prueba(item: PruebaHemograma) -> rx.Component:
                         rx.table.cell(
                             rx.input(
                                 type_="number",
-                                value=item.hb,
-                                on_change=PruebaHemogramaState.set_edit_hb,
+                                # value=item.hb,
+                                # on_change=PruebaHemogramaState.set_edit_hb,
                             )
                         ),
                     ),
@@ -314,8 +314,8 @@ def editar_prueba(item: PruebaHemograma) -> rx.Component:
                         rx.table.cell(
                             rx.input(
                                 type_="number",
-                                value=item.cv,
-                                on_change=PruebaHemogramaState.set_edit_cv,
+                                # value=item.cv,
+                                # on_change=PruebaHemogramaState.set_edit_cv,
                             )
                         ),
                     ),
@@ -575,12 +575,12 @@ def lista_pruebas() -> rx.Component:
                     lambda item: rx.table.row(
                         rx.table.cell(item.globulos_rojos),
                         rx.table.cell(item.hematocritos),
-                        rx.table.cell(item.hb),
+                        # rx.table.cell(item.hb),
                         rx.table.cell(item.vcm),
                         rx.table.cell(item.hcm),
                         rx.table.cell(item.chcm),
                         rx.table.cell(item.rdw),
-                        rx.table.cell(item.cv),
+                        # rx.table.cell(item.cv),
                         rx.table.cell(item.plaquetas),
                         rx.table.cell(item.globulos_blancos),
                         rx.table.cell(item.formula),

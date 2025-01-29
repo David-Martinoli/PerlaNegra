@@ -40,7 +40,6 @@ class EstadoCivil(rx.Model, TimestampMixin, table=True):
     # Relaciones
     estadocivil_personalr: list["PersonalR"] = Relationship(
         back_populates="personalr_estado_civil",
-        sa_relationship_kwargs={"cascade": "all, delete-orphan"},
     )
 
     # @validator("nombre")

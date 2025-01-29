@@ -36,7 +36,7 @@ class Laboratorio(rx.Model, TimestampMixin, table=True):
     hemoglobina: float = Field(default=0.0, ge=0, le=20)
     hematocrito: float = Field(default=0.0, ge=0, le=100)
     eritrosedimentacion: int = Field(default=0, ge=0, le=200)
-    hemograma: str = Field(default=0, ge=0, le=200)
+    hemograma: float = Field(default=0.0, ge=0, le=200)
 
     # Química sanguínea
     glucemia: float = Field(ge=0, le=500)
@@ -65,7 +65,7 @@ class Laboratorio(rx.Model, TimestampMixin, table=True):
     ldl: str = ""
 
     hepatograma: str = Field(default="", max_length=500)
-    indice_castelli: str = Field(default="", max_length=500)
+    indice_castelli: float = Field(default=0.0)
 
     # Relaciones
     laboratorio_declaracion_jurada_relation: list["DeclaracionJurada"] = Relationship(

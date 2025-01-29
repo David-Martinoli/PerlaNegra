@@ -36,6 +36,9 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
     apellido: str = Field(min_length=2, max_length=100)
     fecha_nacimiento: date = Field()
     dni: str = Field(max_length=20, unique=True)
+    estado_civil_id: int = Field(
+        foreign_key="estadocivil.id", nullable=False, ondelete="RESTRICT"
+    )
 
     cantidad_hijos: int = Field(default=0, ge=0)
     nacionalidad: str = Field(default="ARGENTINA", max_length=50)

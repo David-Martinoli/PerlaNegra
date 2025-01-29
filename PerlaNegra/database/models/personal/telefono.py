@@ -1,3 +1,4 @@
+from enum import Enum
 import reflex as rx
 from sqlmodel import Field, func, Relationship
 from datetime import datetime
