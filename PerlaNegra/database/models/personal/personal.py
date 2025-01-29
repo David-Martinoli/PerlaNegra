@@ -23,6 +23,8 @@ if TYPE_CHECKING:
     from ..sanidad.declaracion_jurada import DeclaracionJurada
     from ..sanidad.odontologico import Odontologico
     from ..sanidad.profesional_paciente import ProfesionalPaciente
+    from ..sanidad.secreto_medico import SecretoMedico
+    from ..sanidad.vacunacion import Vacunacion
 
 
 class Personal(rx.Model, TimestampMixin, table=True):
@@ -157,6 +159,36 @@ class Personal(rx.Model, TimestampMixin, table=True):
                 "lazy": "joined",
             },
         )
+    )
+    personal_secreto_medico_profesionalid_relation: list["SecretoMedico"] = (
+        Relationship(
+            back_populates="secreto_medico_profesionalid_personal_relation",
+            sa_relationship_kwargs={
+                "foreign_keys": "SecretoMedico.profesional_id",
+                "lazy": "joined",
+            },
+        )
+    )
+    personal_secreto_medico_pacienteid_relation: list["SecretoMedico"] = Relationship(
+        back_populates="secreto_medico_pacienteid_personal_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "SecretoMedico.paciente_id",
+            "lazy": "joined",
+        },
+    )
+    personal_vacunacion_profesionalid_relation: list["Vacunacion"] = Relationship(
+        back_populates="vacunacion_peofesionalid_personal_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "Vacunacion.profesional_id",
+            "lazy": "joined",
+        },
+    )
+    personal_vacunacion_personalid_relation: list["Vacunacion"] = Relationship(
+        back_populates="vacunacion_personalid_personal_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "Vacunacion.personal_id",
+            "lazy": "joined",
+        },
     )
 
     # @property

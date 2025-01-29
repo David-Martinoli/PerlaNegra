@@ -95,9 +95,11 @@ Puedes definir subestados en sus propios archivos, o si el estado es específico
 
 ### Nomenclatura relaciones de modelos
 
-se implemento un sistema de nomenclatura para los nombres de relaciones que consiste en:
+Implementacion de sistema de nomenclatura para los nombres de relaciones que consiste en:
+
 ```Python
-[Nombre_tabla_actual] + [Nombre_tabla_a_vincular] + *[nombre_campo] + "relation"
+[Nombre_tabla_actual] + [Nombre_tabla_a_vincular] + "relation"
+[Nombre_tabla_a_vincular] + [Nombre_tabla_actual] + "relation"
 ```
 Ejemplo:
 ```
@@ -108,7 +110,12 @@ class Heroe(...):
     heroe_equipo_relation
 ```
 
-* En caso de realizar dos vinculos a misma tabla, agregar nombre de campo
+* En caso de realizar dos vinculos a misma tabla, agregar nombre de campo:
+
+```Python
+[Nombre_tabla_actual] + [nombre_de_columna] + [Nombre_tabla_a_vincular] + "relation"
+[Nombre_tabla_a_vincular] + [Nombre_tabla_actual] + [nombre_de_columna] + "relation"
+```
 
 #### SistIntegPerlaNegra Ejecutando Reflex en Linux
 
