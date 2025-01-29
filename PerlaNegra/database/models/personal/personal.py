@@ -58,33 +58,53 @@ class Personal(rx.Model, TimestampMixin, table=True):
         back_populates="personalr_personal_relation",
         sa_relationship_kwargs={"lazy": "joined"},
     )
-    personal_actuacion_p_relation: list["ActuacionDisciplinaria"] = Relationship(
-        back_populates="actuacion_p_personal_relation",
-        sa_relationship_kwargs={"foreign_keys": "ActuacionDisciplinaria.personal_id"},
+    personal_actuacion_disciplinaria_personalid_relation: list[
+        "ActuacionDisciplinaria"
+    ] = Relationship(
+        back_populates="actuacion_disciplinaria_personalid_personal_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "ActuacionDisciplinaria.personal_id",
+            "lazy": "joined",
+        },
     )
-    personal_actuacion_a_relation: list["ActuacionDisciplinaria"] = Relationship(
-        back_populates="actuacion_a_personal_relation",
-        sa_relationship_kwargs={"foreign_keys": "ActuacionDisciplinaria.actuante_id"},
+    personal_actuacion_disciplinaria_actuanteid_relation: list[
+        "ActuacionDisciplinaria"
+    ] = Relationship(
+        back_populates="actuacion_disciplinaria_actuanteid_personal_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "ActuacionDisciplinaria.actuante_id",
+            "lazy": "joined",
+        },
     )
     personal_actuacion_personal_relation: list["Actuacion"] = Relationship(
         back_populates="actuacion_personal_personal_relation",
-        sa_relationship_kwargs={"foreign_keys": "Actuacion.personal_id"},
+        sa_relationship_kwargs={
+            "foreign_keys": "Actuacion.personal_id",
+            "lazy": "joined",
+        },
     )
     personal_actuacion_actuante_relation: list["Actuacion"] = Relationship(
         back_populates="actuacion_actuante_personal_relation",
-        sa_relationship_kwargs={"foreign_keys": "Actuacion.actuante_id"},
+        sa_relationship_kwargs={
+            "foreign_keys": "Actuacion.actuante_id",
+            "lazy": "joined",
+        },
     )
     personal_atributo_personal_relation: list["AtributoPersonal"] = Relationship(
-        back_populates="atributo_personal_personal_relation"
+        back_populates="atributo_personal_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     personal_calificacion_relation: list["Calificacion"] = Relationship(
-        back_populates="calificacion_personal_relation"
+        back_populates="calificacion_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     direccion_personal_relation: list["Direccion"] = Relationship(
-        back_populates="personal_direccion_relation"
+        back_populates="personal_direccion_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     personal_familiar_relation: list["Familiar"] = Relationship(
-        back_populates="familiar_personal_relation"
+        back_populates="familiar_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     felicitacion_personal_quien_impone_relation: list["Felicitacion"] = Relationship(
         back_populates="personal_quien_impone_felicitacion_relation",
@@ -131,16 +151,20 @@ class Personal(rx.Model, TimestampMixin, table=True):
         },
     )
     personal_telefono_relation: list["Telefono"] = Relationship(
-        back_populates="telefono_personal_relation"
+        back_populates="telefono_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     personal_examen_medico_relation: list["ExamenMedico"] = Relationship(
-        back_populates="examen_medico_personal_relation"
+        back_populates="examen_medico_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     personal_declaracion_jurada_relation: list["DeclaracionJurada"] = Relationship(
-        back_populates="declaracion_jurada_personal_relation"
+        back_populates="declaracion_jurada_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     personal_odontologico_relation: list["Odontologico"] = Relationship(
-        back_populates="odontologico_personal_relation"
+        back_populates="odontologico_personal_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
     )
     personal_profesional_paciente_profesionalid_relation: list[
         "ProfesionalPaciente"

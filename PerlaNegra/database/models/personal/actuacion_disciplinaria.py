@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 import reflex as rx
+from enum import Enum
 from sqlmodel import Field, func, Relationship
 from datetime import date, datetime, timezone
 from ..mixins.timestamp_mixin import TimestampMixin
@@ -7,6 +8,13 @@ from ..mixins.timestamp_mixin import TimestampMixin
 if TYPE_CHECKING:
     from .actuacion_disciplinaria_scan import ActuacionDisciplinariaScan
     from .personal import Personal
+
+
+class EstadoActuacion(str, Enum):
+    INICIADO = "iniciado"
+    EN_PROCESO = "en_proceso"
+    FINALIZADO = "finalizado"
+    ARCHIVADO = "archivado"
 
 
 class ActuacionDisciplinaria(rx.Model, TimestampMixin, table=True):
@@ -24,13 +32,14 @@ class ActuacionDisciplinaria(rx.Model, TimestampMixin, table=True):
 
     __tablename__ = "actuaciondisciplinaria"
     id: int | None = Field(default=None, primary_key=True)
-    numero_expediente: str
+    numero_expediente: str = Field(unique=True, index=True)
+    estado: EstadoActuacion = Field(default=EstadoActuacion.INICIADO)
     fecha_inicio: date
     fecha_fin: date | None = None
-    personal_id: int = Field(foreign_key="personal.id")
-    actuante_id: int = Field(foreign_key="personal.id")
-    causa: str | None = None
-    observacion: str | None = None
+    personal_id: int = Field(foreign_key="personal.id", index=True)
+    actuante_id: int = Field(foreign_key="personal.id", index=True)
+    causa: str | None = Field(default=None, max_length=500)
+    observacion: str | None = Field(default=None, max_length=2000)
     created_at: datetime | None = Field(
         default=None,
         nullable=True,
@@ -42,15 +51,20 @@ class ActuacionDisciplinaria(rx.Model, TimestampMixin, table=True):
     )
 
     # Relaciones
-    actuacion_p_personal_relation: "Personal" = Relationship(
-        back_populates="personal_actuacion_p_relation",
+    actuacion_disciplinaria_personalid_personal_relation: "Personal" = Relationship(
+        back_populates="personal_actuacion_disciplinaria_personalid_relation",
         sa_relationship_kwargs={"foreign_keys": "ActuacionDisciplinaria.personal_id"},
     )
-    actuacion_a_personal_relation: "Personal" = Relationship(
-        back_populates="personal_actuacion_a_relation",
+    actuacion_disciplinaria_actuanteid_personal_relation: "Personal" = Relationship(
+        back_populates="personal_actuacion_disciplinaria_actuanteid_relation",
         sa_relationship_kwargs={"foreign_keys": "ActuacionDisciplinaria.actuante_id"},
     )
-    scans: list["ActuacionDisciplinariaScan"] = Relationship(back_populates="actuacion")
+    actuacion_disciplinaria_actuacion_isciplinaria_scan_relation: list[
+        "ActuacionDisciplinariaScan"
+    ] = Relationship(
+        back_populates="actuacion_disciplinaria_scan_actuacion_disciplinaria_relation",
+        sa_relationship_kwargs={"lazy": "joined"},
+    )
 
     @property
     def esta_activa(self) -> bool:
