@@ -1,6 +1,10 @@
 import reflex as rx
-from sqlmodel import Field, func
+from sqlmodel import Field, func, Relationship
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .laboratorio import Laboratorio
 
 
 class PruebaHemograma(rx.Model, TimestampMixin, table=True):
@@ -17,3 +21,8 @@ class PruebaHemograma(rx.Model, TimestampMixin, table=True):
     plaquetas: int
     globulos_blancos: int
     formula: str = ""
+
+    # Relaciones
+    prueba_hemograma_laboratorio_relation: "Laboratorio" = Relationship(
+        back_populates="laboratorio_prueba_hemograma_relation"
+    )

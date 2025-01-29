@@ -19,6 +19,10 @@ if TYPE_CHECKING:
     from .personal_seguro import PersonalSeguro
     from .sancion import Sancion
     from .telefono import Telefono
+    from ..sanidad.examen_medico import ExamenMedico
+    from ..sanidad.declaracion_jurada import DeclaracionJurada
+    from ..sanidad.odontologico import Odontologico
+    from ..sanidad.profesional_paciente import ProfesionalPaciente
 
 
 class Personal(rx.Model, TimestampMixin, table=True):
@@ -126,6 +130,33 @@ class Personal(rx.Model, TimestampMixin, table=True):
     )
     personal_telefono_relation: list["Telefono"] = Relationship(
         back_populates="telefono_personal_relation"
+    )
+    personal_examen_medico_relation: list["ExamenMedico"] = Relationship(
+        back_populates="examen_medico_personal_relation"
+    )
+    personal_declaracion_jurada_relation: list["DeclaracionJurada"] = Relationship(
+        back_populates="declaracion_jurada_personal_relation"
+    )
+    personal_odontologico_relation: list["Odontologico"] = Relationship(
+        back_populates="odontologico_personal_relation"
+    )
+    personal_profesional_paciente_profesionalid_relation: list[
+        "ProfesionalPaciente"
+    ] = Relationship(
+        back_populates="profesional_paciente_profesionalid_personal_relation",
+        sa_relationship_kwargs={
+            "foreign_keys": "ProfesionalPaciente.profesional_id",
+            "lazy": "joined",
+        },
+    )
+    personal_profesional_paciente_pacienteid_relation: list["ProfesionalPaciente"] = (
+        Relationship(
+            back_populates="profesional_paciente_pacienteid_personal_relation",
+            sa_relationship_kwargs={
+                "foreign_keys": "ProfesionalPaciente.paciente_id",
+                "lazy": "joined",
+            },
+        )
     )
 
     # @property

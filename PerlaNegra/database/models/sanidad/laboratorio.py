@@ -1,7 +1,12 @@
 import reflex as rx
-from sqlmodel import Field, func
+from sqlmodel import Field, func, Relationship
 from datetime import date
 from ..mixins.timestamp_mixin import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .prueba_hemograma import PruebaHemograma
+    from .declaracion_jurada import DeclaracionJurada
 
 
 class Laboratorio(rx.Model, TimestampMixin, table=True):
@@ -32,3 +37,11 @@ class Laboratorio(rx.Model, TimestampMixin, table=True):
     hepatograma: str = ""
     indice_castelli: str = ""
     observaciones: str = ""
+
+    # Relaciones
+    laboratorio_declaracion_jurada_relation: list["DeclaracionJurada"] = Relationship(
+        back_populates="declaracion_jurada_laboratorio_relation"
+    )
+    laboratorio_prueba_hemograma_relation: "PruebaHemograma" = Relationship(
+        back_populates="prueba_hemograma_laboratorio_relation"
+    )
