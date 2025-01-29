@@ -10,12 +10,23 @@ if TYPE_CHECKING:
 
 
 class Inasistencia(rx.Model, TimestampMixin, table=True):
+    """Modelo para gestionar inasistencias del personal.
+
+    Attributes:
+        fecha: Fecha de la inasistencia
+        personal_id: ID del personal
+        motivo_id: ID del otivo
+        observaciones: Detalles adicionales
+    """
+
     __tablename__ = "inasistencia"
     id: int | None = Field(default=None, primary_key=True)
-    fecha = date
-    personal_id: int | None = Field(foreign_key="personal.id") 
+    fecha: date = Field()
+    personal_id: int | None = Field(foreign_key="personal.id")
     inasistencia_motivo_id: int | None = Field(foreign_key="inasistenciamotivo.id")
     motivo = str
+    justificada: bool = Field(default=True)
+
     created_at: datetime | None = Field(
         default=None,
         nullable=True,
@@ -29,3 +40,12 @@ class Inasistencia(rx.Model, TimestampMixin, table=True):
     inasistencia_inasistrencia_motivo_relation: "InasistenciaMotivo" = Relationship(
         back_populates="inasistencia_motivo_inasistencia_relation"
     )
+
+    # @validator("fecha")
+    # def validar_fecha(cls, v):
+    #    if v > date.today():
+    #        raise ValueError("La fecha no puede ser futura")
+    #    return v
+
+    def __repr__(self) -> str:
+        return f"Inasistencia(fecha={self.fecha})"

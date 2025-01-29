@@ -1,4 +1,6 @@
+from enum import Enum
 import reflex as rx
+import hashlib
 from pathlib import Path
 from sqlmodel import Field, func, Relationship
 from datetime import datetime
@@ -14,15 +16,28 @@ if TYPE_CHECKING:
     from .sancion import Sancion
 
 
+class TipoDocumentoSancion(str, Enum):
+    RESOLUCION = "resolucion"
+    DESCARGO = "descargo"
+    INFORME = "informe"
+    OTRO = "otro"
+
+
 class SancionScan(rx.Model, TimestampMixin, table=True):
+    """Modelo para almacenar documentos escaneados de sanciones."""
+
     __tablename__ = "sancionscan"
+
     id: int | None = Field(default=None, primary_key=True)
     sancion_id: int | None = Field(foreign_key="sancion.id")
-    ruta_archivo_imagen: str | None = None
-    nombre_archivo_imagen: str | None = None
-    nombre_original: str = Field(max_length=255)
+
+    # Campos de archivo
+    ruta_archivo_imagen: str | None = Field(default=None)
+    nombre_archivo_imagen: str | None = Field(default=None)
+    nombre_original: str | None = Field(max_length=255, default=None)
     descripcion: str | None = Field(default=None, max_length=500)
     hash_md5: str | None = Field(default=None)
+
     created_at: datetime | None = Field(
         default=None,
         nullable=True,
@@ -35,6 +50,17 @@ class SancionScan(rx.Model, TimestampMixin, table=True):
         sa_relationship_kwargs={"lazy": "joined"},
     )
 
+    # @validator("ruta_archivo")
+    # def validar_archivo(cls, v):
+    #    ext = Path(v).suffix.lower()
+    #    if ext not in ALLOWED_EXTENSIONS:
+    #        raise ValueError(f"Extensión no permitida: {ext}")
+    #    return v
+
+    def calcular_hash(self, contenido: bytes) -> str:
+        """Calcula el hash MD5 del contenido."""
+        return hashlib.md5(contenido).hexdigest()
+
     @property
     def ruta_completa(self) -> Path:
         """Retorna la ruta completa del archivo."""
@@ -43,3 +69,6 @@ class SancionScan(rx.Model, TimestampMixin, table=True):
     @property
     def url(self) -> str:
         return f"{UPLOAD_PATH}{self.ruta_archivo_imagen}{self.nombre_archivo_imagen}"
+
+    def __repr__(self) -> str:
+        return f"SancionScan(sancion_id={self.sancion_id})"

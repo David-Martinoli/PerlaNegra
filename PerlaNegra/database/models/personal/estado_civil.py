@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import TYPE_CHECKING
 import reflex as rx
 from sqlmodel import Field, func, Relationship
@@ -6,6 +7,14 @@ from ..mixins.timestamp_mixin import TimestampMixin
 
 if TYPE_CHECKING:
     from .personal_r import PersonalR
+
+
+class TipoEstadoCivil(str, Enum):
+    SOLTERO = "SOLTERO"
+    CASADO = "CASADO"
+    DIVORCIADO = "DIVORCIADO"
+    VIUDO = "VIUDO"
+    UNION_CIVIL = "UNION_CIVIL"
 
 
 class EstadoCivil(rx.Model, TimestampMixin, table=True):
@@ -22,22 +31,24 @@ class EstadoCivil(rx.Model, TimestampMixin, table=True):
 
     id: int | None = Field(default=None, primary_key=True)
     nombre: str = Field(min_length=2, max_length=50, unique=True, index=True)
+    descripcion: str | None = Field(default=None, max_length=200)
+    activo: bool = Field(default=True)
     created_at: datetime | None = Field(
         default=None, nullable=True, sa_column_kwargs={"server_default": func.now()}
     )
 
     # Relaciones
-    personal_r: list["PersonalR"] = Relationship(
-        back_populates="estado_civil",
+    estadocivil_personalr: list["PersonalR"] = Relationship(
+        back_populates="personalr_estado_civil",
         sa_relationship_kwargs={"cascade": "all, delete-orphan"},
     )
 
-    # class Config:
-    #    orm_mode = True
-    #    arbitrary_types_allowed = True
+    # @validator("nombre")
+    # def validar_nombre(cls, v):
+    #    return v.upper()
 
-    def __str__(self) -> str:
-        return self.nombre
+    def __repr__(self) -> str:
+        return f"EstadoCivil(nombre={self.nombre})"
 
     @property
     def total_personal(self) -> int:

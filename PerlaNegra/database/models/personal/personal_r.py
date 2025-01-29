@@ -1,3 +1,4 @@
+from enum import Enum
 import reflex as rx
 from typing import TYPE_CHECKING
 from sqlmodel import (
@@ -18,21 +19,28 @@ if TYPE_CHECKING:
     from .estado_civil import EstadoCivil
 
 
+class EstadoServicio(str, Enum):
+    ACTIVO = "ACTIVO"
+    LICENCIA = "LICENCIA"
+    COMISION = "COMISION"
+    BAJA = "BAJA"
+
+
 class PersonalR(rx.Model, TimestampMixin, table=True):
     """Modelo que representa al personal de la empresa."""
 
     __tablename__ = "personalr"  # Mantener el nombre
 
     id: int | None = Field(default=None, primary_key=True)
-    nombre: str = Field(max_length=100)
-    apellido: str = Field(max_length=100)
-    fecha_nacimiento: date
+    nombre: str = Field(min_length=2, max_length=100)
+    apellido: str = Field(min_length=2, max_length=100)
+    fecha_nacimiento: date = Field()
     dni: str = Field(max_length=20, unique=True)
-    estado_civil_id: int | None = Field(
-        foreign_key="estadocivil.id", nullable=False, ondelete="RESTRICT"
-    )
+
     cantidad_hijos: int = Field(default=0, ge=0)
-    # Timestamps heredados de TimestampMixin
+    nacionalidad: str = Field(default="ARGENTINA", max_length=50)
+    activo: bool = Field(default=True)
+
     created_at: datetime = Field(
         default_factory=datetime.now,
         nullable=False,
@@ -47,19 +55,19 @@ class PersonalR(rx.Model, TimestampMixin, table=True):
     # Relaciones
     personalr_personal_relation: list["Personal"] = Relationship(
         back_populates="personal_personalr_relation",
-        sa_relationship_kwargs={"lazy": "joined"},
     )
 
-    estado_civil: "EstadoCivil" = Relationship(
-        back_populates="personal_r",
-        sa_relationship_kwargs={"lazy": "joined"},
+    personalr_estado_civil: "EstadoCivil" = Relationship(
+        back_populates="estadocivil_personalr",
     )
 
-    # Índices
-    __table_args__ = (
-        Index("idx_dni_personalr", "dni", unique=True),
-        Index("idx_nombre_apellido_personalr", "nombre", "apellido"),
-    )
+    # @validator("dni")
+    # def validar_dni(cls, v):
+    #    return v.strip().replace(".", "")
+
+    # @validator("nombre", "apellido")
+    # def validar_nombres(cls, v):
+    #    return v.strip().title()
 
     # Propiedades calculadas
     @property

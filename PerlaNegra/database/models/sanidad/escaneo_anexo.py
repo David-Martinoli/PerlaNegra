@@ -1,3 +1,4 @@
+import hashlib
 import reflex as rx
 from pathlib import Path
 from sqlmodel import Field, func, Relationship
@@ -15,13 +16,19 @@ if TYPE_CHECKING:
 
 
 class EscaneoAnexo(rx.Model, TimestampMixin, table=True):
+    """Modelo para gestionar archivos escaneados anexos."""
+
     __tablename__ = "escaneoanexo"
+
     id: int | None = Field(default=None, primary_key=True)
     declaracion_jurada_id: int | None = Field(foreign_key="declaracionjurada.id")
-    ruta_archivo_imagen: str | None = None
-    nombre_archivo_imagen: str | None = None
+
+    # Campos archivo
+    ruta_archivo_imagen: str | None = Field(default=None)
+    nombre_archivo_imagen: str = Field(max_length=255)
     nombre_original: str = Field(max_length=255)
     hash_md5: str | None = Field(default=None)
+
     created_at: datetime | None = Field(
         default=None,
         nullable=True,
@@ -34,6 +41,17 @@ class EscaneoAnexo(rx.Model, TimestampMixin, table=True):
         sa_relationship_kwargs={"lazy": "joined"},
     )
 
+    # @validator("ruta_archivo")
+    # def validar_archivo(cls, v):
+    #    ext = Path(v).suffix.lower()
+    #    if ext not in ALLOWED_EXTENSIONS:
+    #        raise ValueError(f"Extensión no permitida: {ext}")
+    #    return v
+
+    def calcular_hash(self, contenido: bytes) -> str:
+        """Calcula el hash MD5 del contenido."""
+        return hashlib.md5(contenido).hexdigest()
+
     @property
     def ruta_completa(self) -> Path:
         """Retorna la ruta completa del archivo."""
@@ -42,3 +60,6 @@ class EscaneoAnexo(rx.Model, TimestampMixin, table=True):
     @property
     def url(self) -> str:
         return f"{UPLOAD_PATH}{self.ruta_archivo_imagen}{self.nombre_archivo_imagen}"
+
+    def __repr__(self) -> str:
+        return f"EscaneoAnexo(nombre={self.nombre_original})"

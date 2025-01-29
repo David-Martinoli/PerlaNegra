@@ -15,52 +15,78 @@ if TYPE_CHECKING:
 
 
 class DeclaracionJurada(rx.Model, TimestampMixin, table=True):
+    """Modelo para declaraciones juradas de salud."""
+
     __tablename__ = "declaracionjurada"
+
     id: int | None = Field(default=None, primary_key=True)
     personal_id: int | None = Field(foreign_key="personal.id")
-    fatiga_facil: bool = False
-    falta_aire: bool = False
-    tos_cronica: bool = False
-    hipertension: bool = False
-    dolor_pecho: bool = False
-    palpitaciones: bool = False
-    edemas: bool = False
-    anemia: bool = False
-    diabetes: bool = False
-    covid19: bool = False
-    medicacion_recetada: bool = False
-    texto_medicacion_recetada: str = ""
-    sangrado_anormal: bool = False
-    hemorragias: bool = False
-    dolor_abdominal: bool = False
-    dolor_orinar: bool = False
-    esguinces: bool = False
-    fracturas: bool = False
-    lumbago: bool = False
-    cirugias: bool = False
-    embarazo: bool = False
-    internaciones: bool = False
-    medicacion_no_recetada: bool = False
-    complicaciones_embarazo: bool = False
-    cefaleas: bool = False
-    desmayos: bool = False
-    epilepsia: bool = False
-    depresion: bool = False
-    vertigos: bool = False
-    insomnio: bool = False
-    consumo_tabaco: bool = False
-    cantidad_tabaco: str = ""
-    consumo_alcohol: bool = False
-    consumo_drogas: bool = False
-    requirio_oxigeno: bool = False
     actividad_fisica_id: int | None = Field(foreign_key="tipoactividadfisica.id")
-    otros_antecedentes: str = ""
-    fecha_anexo: date
-    fecha_hora_carga: datetime = datetime.now(timezone.utc)
-    tiempo_caducidad: int = 0
     examen_medico_id: int | None = Field(foreign_key="examenmedico.id")
     laboratorio_id: int | None = Field(foreign_key="laboratorio.id")
     cardiologicos_id: int | None = Field(foreign_key="cardiologico.id")
+
+    # Síntomas Respiratorios
+    fatiga_facil: bool = Field(default=False)
+    falta_aire: bool = Field(default=False)
+    tos_cronica: bool = Field(default=False)
+
+    # Cardiovascular
+    hipertension: bool = Field(default=False)
+    dolor_pecho: bool = Field(default=False)
+    palpitaciones: bool = Field(default=False)
+    edemas: bool = Field(default=False)
+
+    # Condiciones Crónicas
+    anemia: bool = Field(default=False)
+    diabetes: bool = Field(default=False)
+    covid19: bool = Field(default=False)
+
+    # Medicación
+    medicacion_recetada: bool = Field(default=False)
+    texto_medicacion_recetada: str | None = Field(default=None, max_length=500)
+    medicacion_no_recetada: bool = Field(default=False)
+
+    # Sistema Digestivo/Urinario
+    sangrado_anormal: bool = Field(default=False)
+    hemorragias: bool = Field(default=False)
+    dolor_abdominal: bool = Field(default=False)
+    dolor_orinar: bool = Field(default=False)
+
+    # Traumatismos/Cirugías
+    esguinces: bool = Field(default=False)
+    fracturas: bool = Field(default=False)
+    lumbago: bool = Field(default=False)
+    cirugias: bool = Field(default=False)
+
+    # Ginecología
+    embarazo: bool = Field(default=False)
+    complicaciones_embarazo: bool = Field(default=False)
+
+    internaciones: bool = Field(default=False)
+
+    # Neurológico/Psicológico
+    cefaleas: bool = Field(default=False)
+    desmayos: bool = Field(default=False)
+    epilepsia: bool = Field(default=False)
+    depresion: bool = Field(default=False)
+    vertigos: bool = Field(default=False)
+    insomnio: bool = Field(default=False)
+
+    # Hábitos
+    consumo_tabaco: bool = Field(default=False)
+    cantidad_tabaco: str | None = Field(default=None, max_length=500)
+    consumo_alcohol: bool = Field(default=False)
+    consumo_drogas: bool = Field(default=False)
+
+    requirio_oxigeno: bool = Field(default=False)
+
+    otros_antecedentes: str | None = Field(default=None, max_length=500)
+    fecha_anexo: date = Field()
+    fecha_hora_carga: datetime = datetime.now(timezone.utc)
+    tiempo_caducidad: int = Field(default=0)
+
+    observaciones: str | None = Field(default=None, max_length=1000)
 
     # Relaciones
     declaracion_jurada_personal_relation: "Personal" = Relationship(
@@ -84,3 +110,12 @@ class DeclaracionJurada(rx.Model, TimestampMixin, table=True):
     declaracion_jurada_escaneo_anexo_relation: list["EscaneoAnexo"] = Relationship(
         back_populates="escaneo_anexo_declaracion_jurada_relation"
     )
+
+    # @validator("fecha")
+    # def validar_fecha(cls, v):
+    #    if v > date.today():
+    #        raise ValueError("La fecha no puede ser futura")
+    #    return v
+
+    def __repr__(self) -> str:
+        return f"DeclaracionJurada(personal_id={self.personal_id}, fecha={self.fecha})"

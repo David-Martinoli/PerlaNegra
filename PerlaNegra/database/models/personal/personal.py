@@ -48,6 +48,7 @@ class Personal(rx.Model, TimestampMixin, table=True):
     personalS_id: int | None = Field(
         foreign_key="personals.id", nullable=False, ondelete="RESTRICT"
     )
+    activo: bool = Field(default=True)
 
     # Relaciones
     personal_personals_relation: "PersonalS" = Relationship(
@@ -222,3 +223,6 @@ class Personal(rx.Model, TimestampMixin, table=True):
     # @property
     # def legajo(self) -> str:
     #    return self.datos_servicio.numero_legajo if self.datos_servicio else ""
+
+    def __repr__(self) -> str:
+        return f"Personal(id={self.id})"
