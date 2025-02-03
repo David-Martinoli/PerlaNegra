@@ -81,7 +81,7 @@ def navbar_footer() -> rx.Component:
     """
     return rx.hstack(
         rx.link(
-            rx.text("Docs", size="3"),
+            rx.text("Sanidad", size="3"),
             href="https://reflex.dev/docs/getting-started/introduction/",
             color_scheme="gray",
             underline="none",
@@ -108,10 +108,10 @@ def menu_button() -> rx.Component:
     # The ordered page routes.
     ordered_page_routes = [
         "/",
-        "/table",
-        "/about",
-        "/profile",
-        "/settings",
+        # "/table",
+        # "/about",
+        # "/profile",
+        # "/settings",
     ]
 
     # Get the decorated pages.
@@ -142,15 +142,23 @@ def menu_button() -> rx.Component:
                         width="100%",
                     ),
                     rx.divider(),
-                    *[
-                        menu_item(
-                            text=page.get(
-                                "title", page["route"].strip("/").capitalize()
-                            ),
-                            url=page["route"],
-                        )
-                        for page in ordered_pages
-                    ],
+                    rx.box(
+                        rx.vstack(
+                            *[
+                                menu_item(
+                                    text=page.get(
+                                        "title", page["route"].strip("/").capitalize()
+                                    ),
+                                    url=page["route"],
+                                )
+                                for page in ordered_pages
+                            ],
+                            spacing="4",
+                            width="100%",
+                        ),
+                        max_height="80vh",
+                        overflow_y="auto",
+                    ),
                     rx.spacer(),
                     navbar_footer(),
                     spacing="4",
@@ -180,10 +188,11 @@ def navbar() -> rx.Component:
         rx.hstack(
             # The logo.
             rx.color_mode_cond(
-                rx.image(src="/reflex_black.svg", height="1em"),
-                rx.image(src="/reflex_white.svg", height="1em"),
+                rx.image(src="/perla_negra_logo_black.svg", height="3em"),
+                rx.image(src="/perla_negra_logo_white.svg", height="3em"),
             ),
             rx.spacer(),
+            rx.text("Sanidad", size="3"),
             menu_button(),
             align="center",
             width="100%",

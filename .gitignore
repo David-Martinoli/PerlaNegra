@@ -5,7 +5,6 @@ assets/external/
 *.py[cod]
 .cursorignore
 .venv/
-.vscode/
 .web
 __pycache__/
 venv/

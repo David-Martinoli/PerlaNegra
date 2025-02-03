@@ -1,8 +1,9 @@
 import reflex as rx
-from sqlmodel import Field
+from sqlmodel import Field, func
 from ..mixins.timestamp_mixin import TimestampMixin
 
+
 class Rol(rx.Model, TimestampMixin, table=True):
-    id: int = Field(primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     nombre: str
-    descripcion: str = ''
+    descripcion: str = ""

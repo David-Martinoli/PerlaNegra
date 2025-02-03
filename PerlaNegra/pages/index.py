@@ -1,31 +1,35 @@
 import reflex as rx
-from .. import styles
+import reflex_local_auth
+
+from PerlaNegra.components.sanidad.declaracion_jurada import declaracion_jurada_form
+
+from ..components.auth.state import ProtectedState, SessionState
 from ..templates import template
 
-from ..components.auth.state import SessionState
-from ..components.auth.login_form import login_form
-from ..components.auth.register_form import register_form
+from ..components.auth_old.local_auth_state import LocalAuthState
 
 
-@template(route="/", title="Inicio")
+@template(route="/", title="Inicio", on_load=ProtectedState.on_load)
+@reflex_local_auth.require_login
 def index() -> rx.Component:
-    #rx.text(rx.Var())
-
-    form_to_show = rx.cond(
-        SessionState.autenticated_state,
-        rx.text("autenticado"), rx.cond(
-            SessionState.SHOW_LOGIN_OR_REGISTER,
-            login_form(),
-            register_form()))
-
     return rx.vstack(
-        form_to_show,
         rx.center(
+            # declaracion_jurada_form(),
+            rx.cond(
+                SessionState.is_authenticated,
+                # LocalAuthState.is_authenticated,
+                rx.text("autenticado"),
+                rx.text("Not authenticated"),  # Show temporary message
+            ),
             opacity="0.8",
             spacing="2",
             direction="row",
             width="100%",
+            justify="center",
+            align="center",
         ),
         spacing="6",
         width="100%",
+        justify="center",
+        align="center",
     )

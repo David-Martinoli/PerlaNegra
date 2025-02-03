@@ -14,8 +14,8 @@ def sidebar_header() -> rx.Component:
     return rx.hstack(
         # The logo.
         rx.color_mode_cond(
-            rx.image(src="/reflex_black.svg", height="1.5em"),
-            rx.image(src="/reflex_white.svg", height="1.5em"),
+            rx.image(src="/perla_negra_logo_black.svg", height="3.5em"),
+            rx.image(src="/perla_negra_logo_white.svg", height="3.5em"),
         ),
         rx.spacer(),
         align="center",
@@ -33,7 +33,7 @@ def sidebar_footer() -> rx.Component:
     """
     return rx.hstack(
         rx.link(
-            rx.text("Docs", size="3"),
+            rx.text("Sanidadddd", size="3"),
             href="https://reflex.dev/docs/getting-started/introduction/",
             color_scheme="gray",
             underline="none",
@@ -122,27 +122,20 @@ def sidebar_item(text: str, url: str) -> rx.Component:
 
 
 def sidebar() -> rx.Component:
-    """The sidebar.
+    """The sidebar."""
 
-    Returns:
-        The sidebar component.
-    """
-    # Get all the decorated pages and add them to the sidebar.
     from reflex.page import get_decorated_pages
 
-    # The ordered page routes.
     ordered_page_routes = [
         "/",
-        "/table",
-        "/about",
-        "/profile",
-        "/settings",
+        # "/table",
+        # "/about",
+        # "/profile",
+        # "/settings",
     ]
 
-    # Get the decorated pages.
     pages = get_decorated_pages()
 
-    # Include all pages even if they are not in the ordered_page_routes.
     ordered_pages = sorted(
         pages,
         key=lambda page: (
@@ -155,16 +148,22 @@ def sidebar() -> rx.Component:
     return rx.flex(
         rx.vstack(
             sidebar_header(),
-            rx.vstack(
-                *[
-                    sidebar_item(
-                        text=page.get("title", page["route"].strip("/").capitalize()),
-                        url=page["route"],
-                    )
-                    for page in ordered_pages
-                ],
-                spacing="1",
-                width="100%",
+            rx.box(
+                rx.vstack(
+                    *[
+                        sidebar_item(
+                            text=page.get(
+                                "title", page["route"].strip("/").capitalize()
+                            ),
+                            url=page["route"],
+                        )
+                        for page in ordered_pages
+                    ],
+                    spacing="1",
+                    width="100%",
+                ),
+                max_height="80vh",
+                overflow_y="auto",
             ),
             rx.spacer(),
             sidebar_footer(),
